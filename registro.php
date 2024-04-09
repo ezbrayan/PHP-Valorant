@@ -1,13 +1,13 @@
 <?php
 session_start();
-require_once("Config/conexion.php");
+require_once ("Config/conexion.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id = $_POST['id'];
     $nombre = $_POST['nombre'];
     $correo = $_POST['correo'];
     $password = password_hash($_POST['contraseña'], PASSWORD_DEFAULT); // Corrección aquí
-    $id_agente = $_POST['avatar']; 
+    $id_agente = $_POST['avatar'];
     $puntos_rango = 0;
     $puntos_salud = 150;
     $id_rango = 1;
@@ -65,13 +65,14 @@ try {
 }
 ?>
 
+
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Assets/css/registro.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <!--favicon-->
@@ -89,61 +90,72 @@ try {
     <link rel="icon" type="image/png" sizes="16x16" href="Assets/favicon/favicon-16x16.png">
     <link rel="manifest" href="Assets/favicon/manifest.json">
 
-    <title>Valorant - Registro de Usuario</title>
-
+    <title>Valorant - Registro</title>
+    <link rel="stylesheet" href="Assets/css/registro.css">
 </head>
 
 <body>
-<button id="pauseButton" class="audio">
-        <i id="audioIcon" class="fas fa-volume-up" onclick="pausarAudio()"></i>
-    </button>
-    <audio id="miAudio" autoplay loop>
-        <source src="Assets/audio/carga.mp3" type="audio/mpeg">
-    </audio>
-    <a href="index.php" class="volver-link">
-        <i class="fas fa-sign-out-alt"></i>
-    </a>
+
+    <div id="opciones">
+        <button id="pauseButton" class="audio">
+            <i id="audioIcon" class="fas fa-volume-up" onclick="pausarAudio()"></i>
+        </button>
+        <audio id="miAudio" autoplay loop>
+            <source src="Assets/audio/carga.mp3" type="audio/mpeg">
+        </audio>
+
+        <a href="index.php" class="volver-link">
+            <i class="fas fa-sign-out-alt"></i>
+        </a>
+    </div>
     <div class="contenedor">
-        <div id="agenteSeleccionado">
-            <img src="Assets/img/logopersonages.svg" alt="Riot_logo" style="height: 380px;">
+        <div class="mitad-izquierda">
+
+            <div id="agenteSeleccionado">
+                <img src="Assets/img/logopersonages.svg" alt="Riot_logo" style="height: 380px;">
+            </div>
+            <div class="botones">
+                <a href="login.php" class="inicio-btn">Inicio Sesión</a>
+                <a href="registro.php" class="registro-btn">Registrarme</a>
+            </div>
+
         </div>
-        <div class="formulario">
-            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                <img src="Assets/img/Riots.webp" alt="Riot_logo">
-                <h2>Registrarse</h2>
-                <input type="number" id="id" name="id" placeholder="ID del usuario" required><br><br>
-                <input type="text" id="nombre" name="nombre" placeholder="Nombre de Usuario - Nickname" required><br><br>
-                <input type="correo" id="correo" name="correo" placeholder="Correo Electronico" required><br><br>
-                <input type="password" id="contraseña" name="contraseña" placeholder="contraseña" required><br><br>
+        <div class="mitad-derecha">
+            <div class="formulario">
+                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                    <img src="Assets/img/Riots.webp" alt="Riot_logo">
+                    <h2>Registrarse</h2>
+                    <input type="number" id="id" name="id" placeholder="ID del usuario" required><br><br>
+                    <input type="text" id="nombre" name="nombre" placeholder="Nombre de Usuario - Nickname"
+                        required><br><br>
+                    <input type="correo" id="correo" name="correo" placeholder="Correo Electronico" required><br><br>
+                    <input type="password" id="contraseña" name="contraseña" placeholder="Contraseña" required><br><br>
 
-                <select id="avatar" name="avatar" required onchange="mostrarImagen()">
-                    <option value="">Seleccione un agente</option>
-                    <?php foreach ($agentes as $agente) : ?>
-                        <option value="<?php echo $agente['id_agente']; ?>"><?php echo $agente['nombre']; ?></option> <!-- Cambio aquí -->
-                    <?php endforeach; ?>
-                </select><br><br>
+                    <select id="avatar" name="avatar" required onchange="mostrarImagen()">
+                        <option value="">Seleccione un agente</option>
+                        <?php foreach ($agentes as $agente): ?>
+                            <option value="<?php echo $agente['id_agente']; ?>"><?php echo $agente['nombre']; ?></option>
+                            <!-- Cambio aquí -->
+                        <?php endforeach; ?>
+                    </select><br><br>
 
 
-                <button type="submit" class="submit-btn">
-                    <i class="fas fa-arrow-right"></i> <!-- Ícono de flecha hacia la derecha -->
-                </button><br><br>
-                <div class="objetos">
-                    <a href=""></a>
-                    <a href="login.php">Inicia Sesión</a>
-                    <a href="recuperar_contraseña.php">¿Olvidaste la Contraseña?</a>
-                    <a href=""></a>
-                </div>
-            </form>
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-arrow-right"></i> <!-- Ícono de flecha hacia la derecha -->
+                    </button><br><br>
+                </form>
+            </div>
         </div>
     </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
         var miAudio = document.getElementById("miAudio");
         var audioIcon = document.getElementById("audioIcon");
 
         setTimeout(function () {
             miAudio.play();
-            miAudio.volume = miAudio.volume * 0.5; 
+            miAudio.volume = miAudio.volume * 0.5; // Establecer el volumen 
         }, 500); // Retraso de 0.5 segundos (500 milisegundos)
 
         audioIcon.addEventListener("click", function () {
@@ -158,31 +170,30 @@ try {
             }
         });
     });
-        function mostrarImagen() {
-            var avatarSelect = document.getElementById("avatar");
-            var agenteSeleccionado = document.getElementById("agenteSeleccionado");
-            var idAgente = avatarSelect.value; // Obtener el ID del agente seleccionado
+    function mostrarImagen() {
+        var avatarSelect = document.getElementById("avatar");
+        var agenteSeleccionado = document.getElementById("agenteSeleccionado");
+        var idAgente = avatarSelect.value; // Obtener el ID del agente seleccionado
 
-            // Limpiar contenido anterior
-            agenteSeleccionado.innerHTML = '';
+        // Limpiar contenido anterior
+        agenteSeleccionado.innerHTML = '';
 
-            // Buscar el agente seleccionado en la lista de agentes
-            <?php foreach ($agentes as $agente) : ?>
-                if ('<?php echo $agente['id_agente']; ?>' === idAgente) { // Comprobar si el ID del agente coincide
-                    // Crear imagen y establecer atributos
-                    var img = document.createElement("img");
-                    img.src = 'data:image/jpeg;base64,' + '<?php echo base64_encode($agente["foto"]); ?>'; // Campo foto como BLOB
-                    img.alt = '<?php echo $agente["nombre"]; ?>';
-                    img.width = 200; // Tamaño deseado de la imagen
-                    img.height = 200;
+        // Buscar el agente seleccionado en la lista de agentes
+        <?php foreach ($agentes as $agente): ?>
+            if ('<?php echo $agente['id_agente']; ?>' === idAgente) { // Comprobar si el ID del agente coincide
+                // Crear imagen y establecer atributos
+                var img = document.createElement("img");
+                img.src = 'data:image/jpeg;base64,' + '<?php echo base64_encode($agente["foto"]); ?>'; // Campo foto como BLOB
+                img.alt = '<?php echo $agente["nombre"]; ?>';
+                img.width = 200; // Tamaño deseado de la imagen
+                img.height = 200;
 
-                    // Agregar imagen al div
-                    agenteSeleccionado.appendChild(img);
-                }
-            <?php endforeach; ?>
-        }
-    </script>
+                // Agregar imagen al div
+                agenteSeleccionado.appendChild(img);
+            }
+        <?php endforeach; ?>
+    }
 
-</body>
+</script>
 
 </html>

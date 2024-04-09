@@ -58,11 +58,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="Assets/css/registro.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
@@ -80,45 +80,49 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="icon" type="image/png" sizes="96x96" href="Assets/favicon/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="Assets/favicon/favicon-16x16.png">
     <link rel="manifest" href="Assets/favicon/manifest.json">
+
     <title>Valorant - Iniciar Sesión</title>
+    <link rel="stylesheet" href="Assets/css/login.css">
 </head>
 
 <body>
 
-    <button id="pauseButton" class="audio">
-        <i id="audioIcon" class="fas fa-volume-up" onclick="pausarAudio()"></i>
-    </button>
-    <audio id="miAudio" autoplay loop>
-        <source src="Assets/audio/carga.mp3" type="audio/mpeg">
-    </audio>
+    <div id="opciones">
+        <button id="pauseButton" class="audio">
+            <i id="audioIcon" class="fas fa-volume-up" onclick="pausarAudio()"></i>
+        </button>
+        <audio id="miAudio" autoplay loop>
+            <source src="Assets/audio/carga.mp3" type="audio/mpeg">
+        </audio>
 
-    <a href="index.php" class="volver-link">
-        <i class="fas fa-sign-out-alt"></i>
-    </a>
-
+        <a href="index.php" class="volver-link">
+            <i class="fas fa-sign-out-alt"></i>
+        </a>
+    </div>
     <div class="contenedor">
-        <div>
-        </div>
-        <div class="formulario">
-            <img src="Assets/img/Riots.webp" alt="Riot_logo"><br><br>
-            <h2>Iniciar Sesión</h2><br><br>
-            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                <input type="text" id="correo" name="correo" placeholder="Correo electronico" required><br><br><br>
-                <input type="contraseña" id="contraseña" name="contraseña" placeholder="Contraseña"
-                    required><br><br><br>
-                <button type="submit" class="submit-btn">
-                    <i class="fas fa-arrow-right"></i>
-                </button><br><br><br>
-            </form>
-            <div class="objetos">
-                <a href=""></a>
-                <a href="registro.php">Registrate</a>
-                <a href="recuperar_contraseña.php">¿Olvidaste la Contraseña?</a>
-                <a href=""></a>
+        <div class="mitad-izquierda">
+            <div class="botones">
+                <a href="login.php" class="inicio-btn">Inicio Sesión</a>
+                <a href="registro.php" class="registro-btn">Registrarme</a>
             </div>
         </div>
-        <div>
-
+        <div class="mitad-derecha">
+            <div class="formulario">
+                <img src="Assets/img/Riots.webp" alt="Riot_logo"><br><br>
+                <h2>Iniciar Sesión</h2><br><br>
+                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                    <input type="text" id="correo" name="correo" placeholder="Correo electrónico" required><br><br>
+                    <input type="password" id="contraseña" name="contraseña" placeholder="Contraseña" required><br><br>
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-arrow-right"></i>
+                    </button><br><br>
+                </form>
+                <div class="objetos">
+                    <a href=""></a>
+                    <a href="recuperar_contraseña.php">¿Olvidaste la Contraseña?</a>
+                    <a href=""></a>
+                </div>
+            </div>
         </div>
     </div>
 </body>

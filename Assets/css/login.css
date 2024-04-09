@@ -27,7 +27,10 @@ body {
     text-decoration: none;
     margin-top: 10px;
 }
-
+.activo {
+    background-color: red; /* Cambia el color a rojo */
+    /* Otros estilos según tu preferencia */
+}
 .contenedor {
     width: 100%;
     height: 100%;
@@ -76,8 +79,6 @@ body {
 }
 
 .formulario input[type="text"],
-.formulario input[type="number"],
-.formulario input[type="correo"],
 .formulario input[type="password"] {
     width: 100%; /* Ocupar todo el ancho disponible */
     padding: 10px;
@@ -111,7 +112,7 @@ body {
 .botones {
     display: flex;
     flex-direction: column;
-    margin-right: calc(50% - 930px);
+    margin-right: calc(50% - 830px);
     
 }
 
@@ -139,41 +140,7 @@ body {
 .inicio-btn:active, .registro-btn:active {
     color: red; /* Cambiar color del texto a rojo cuando se hace clic */
 }
-.formulario select{
-    width: 70%;
-    height: 40%;
-    font-size: 15px;
-    padding: 5px;
-    border-radius:5px ;
-    background-color: rgb(255, 255, 255);
-    transition: all 0.2s;
-}
-.formulario select:hover{
-    border: 1px solid rgb(235, 93, 93) ;
-    transition: all 0.2s;
 
-}
-.formulario input:hover{
-    border: 1px solid rgb(235, 93, 93) ;
-    transition: all 0.2s;
-}
-#agenteSeleccionado {
-    width: 400px;
-    height: 500px;
-    margin-left: -500px;
-    border: dashed 20px solid black;
-    overflow: hidden; 
-    border-radius: 25px;
-    text-align: center;
-    color: rgb(61, 61, 61);
-}
-
-#agenteSeleccionado img {
-    width: 100%;
-    height: 100%;
-    border-radius: 25px;
-    object-fit:fill; 
-}
 
 @media (max-width: 768px) {
     .contenedor {
