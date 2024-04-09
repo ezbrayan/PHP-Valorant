@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once("Config/conexion.php");
+require_once ("Config/conexion.php");
 
 // Crear una instancia de la clase Database para obtener la conexión PDO
 $database = new Database();
@@ -65,36 +65,86 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="Assets/css/registro.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <title>Iniciar Sesión</title>
+
+    <!--favicon-->
+    <link rel="apple-touch-icon" sizes="60x60" href="Assets/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="Assets/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="Assets/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="Assets/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="Assets/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="Assets/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="Assets/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="Assets/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="Assets/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="Assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="Assets/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="Assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="Assets/favicon/manifest.json">
+    <title>Valorant - Iniciar Sesión</title>
 </head>
 
 <body>
-<a href="index.php" class="volver-link"><i class="fas fa-sign-out-alt"></i></a>
+
+    <button id="pauseButton" class="audio">
+        <i id="audioIcon" class="fas fa-volume-up" onclick="pausarAudio()"></i>
+    </button>
+    <audio id="miAudio" autoplay loop>
+        <source src="Assets/audio/carga.mp3" type="audio/mpeg">
+    </audio>
+
+    <a href="index.php" class="volver-link">
+        <i class="fas fa-sign-out-alt"></i>
+    </a>
+
     <div class="contenedor">
         <div>
-
         </div>
         <div class="formulario">
-            <img src="Assets/img/riot.png" alt="Riot_logo"><br><br>
+            <img src="Assets/img/Riots.webp" alt="Riot_logo"><br><br>
             <h2>Iniciar Sesión</h2><br><br>
             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                 <input type="text" id="correo" name="correo" placeholder="Correo electronico" required><br><br><br>
-                <input type="contraseña" id="contraseña" name="contraseña" placeholder="Contraseña" required><br><br><br>
+                <input type="contraseña" id="contraseña" name="contraseña" placeholder="Contraseña"
+                    required><br><br><br>
                 <button type="submit" class="submit-btn">
-                    <i class="fas fa-arrow-right"></i> <!-- Ícono de flecha hacia la derecha -->
+                    <i class="fas fa-arrow-right"></i>
                 </button><br><br><br>
             </form>
             <div class="objetos">
-                    <a href=""></a>
-                    <a href="registro.php">Registrate</a>
-                    <a href="recuperar_contraseña.php">¿Olvidaste la Contraseña?</a>
-                    <a href=""></a>
-                </div>
+                <a href=""></a>
+                <a href="registro.php">Registrate</a>
+                <a href="recuperar_contraseña.php">¿Olvidaste la Contraseña?</a>
+                <a href=""></a>
+            </div>
         </div>
         <div>
 
         </div>
     </div>
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var miAudio = document.getElementById("miAudio");
+        var audioIcon = document.getElementById("audioIcon");
+
+        setTimeout(function () {
+            miAudio.play();
+            miAudio.volume = miAudio.volume * 0.5; // Establecer el volumen 
+        }, 500); // Retraso de 0.5 segundos (500 milisegundos)
+
+        audioIcon.addEventListener("click", function () {
+            if (miAudio.paused) {
+                miAudio.play();
+                audioIcon.classList.remove("fa-volume-off");
+                audioIcon.classList.add("fa-volume-up");
+            } else {
+                miAudio.pause();
+                audioIcon.classList.remove("fa-volume-up");
+                audioIcon.classList.add("fa-volume-off");
+            }
+        });
+    });
+
+</script>
 
 </html>

@@ -3,7 +3,7 @@ body {
     height: 100vh;
     margin: 0;
     padding: 0;
-    background-image: url('../img/breeze.webp');
+    background-image: url('../img/fondo.jpeg');
     background-size: cover; 
     background-position: center; 
     background-repeat: no-repeat; 
@@ -11,11 +11,16 @@ body {
 .volver-link {
     position: fixed;
     top: 20px;
-    right: 20px;
-    text-decoration: none; /* Subrayado */
-    color: red; /* Color rojo */
-    text-align: center; /* Alineación centrada */
-    padding: 5px; /* Espaciado interno */
+    right: 20px; /* Alinear a la izquierda */
+    text-decoration: none;
+    color: red;
+}
+
+.audio {
+    position: fixed;
+    top: 20px;
+    right: 50px; /* Alinear a la derecha */
+    color: rgb(0, 0, 0);
 }
 .contenedor{
     width: 100%;
@@ -24,38 +29,55 @@ body {
     justify-content: space-around;
     align-items: center;
 }
-.formulario{
-    background-color: white;
+.formulario {
+    background-color: transparent;
     width: 400px;
     height: 500px;
     border-radius: 30px;
     text-align: center;
     margin: 20px;
     padding: 20px;
-    border: 2px solid rgba(0, 0, 0, 0.55);
+    border: 4px solid rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(5px); /* Reducido el valor de blur */
 }
-.formulario img{
-    width: 20%;
+
+/* Efecto translúcido */
+.formulario::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    border-radius: 32px;
+    background-color: rgba(255, 255, 255, 0.3); /* Reducida la transparencia */
+    z-index: -1;
+}
+
+.formulario img {
+    width: 21%;
     height: 20%;
 }
-.formulario input{
+
+.formulario input {
     width: 70%;
     height: 40%;
     font-size: 15px;
-    border: 1px solid gray;
-    background-color: transparent;
-    border-radius:5px ;
+    border: 1px solid rgb(13, 13, 13);
+    background-color: rgb(238, 238, 230);
+    border-radius: 5px;
     padding: 5px;
-    transition: all 0.2;
-   
+    transition: all 0.2s;
 }
+
+
 .formulario select{
     width: 70%;
     height: 40%;
     font-size: 15px;
     padding: 5px;
     border-radius:5px ;
- 
+    background-color: rgb(238, 238, 230);
     transition: all 0.2s;
 }
 .formulario select:hover{
@@ -85,22 +107,22 @@ body {
     border-radius: 25px;
     object-fit:fill; 
 }
-.submit-btn{
+.submit-btn {
     background-color: transparent;
     font-size: 30px;
-    border-radius:35px;
-    padding: 20px;
-    color: gray;
-    border: 1px solid gray;
+    border-radius: 13px; /* Valor reducido para hacer esquinas más cuadradas */
+    padding: 15px 20px; /* Ajuste del padding para hacer el botón más ancho */
+    color: rgb(216, 186, 186);
+    border: 1px solid rgb(216, 186, 186);
     transition: all 0.2s;
-   
 }
-.submit-btn:hover{
+
+
+.submit-btn:hover {
     background-color: rgb(235, 93, 93);
     color: rgb(255, 255, 255);
     border: 1px solid rgba(128, 128, 128, 0);
     transition: all 0.2s;
-   
 }
 .objetos{
     width: 100%;
@@ -111,7 +133,7 @@ body {
 }
 .objetos a{
     text-decoration: none;
-    color: gray;
+    color: rgb(0, 0, 0);
     font-size: 20px;
     transition: all 0.2s;
 }
