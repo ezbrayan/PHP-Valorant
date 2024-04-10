@@ -1,14 +1,202 @@
-body {
-    width: 100%;
-    height: 100vh;
+*{
     margin: 0;
     padding: 0;
-    background-image: url('../img/fondo.jpeg');
-    background-size: cover; 
-    background-position: center; 
-    background-repeat: no-repeat; 
-    position: relative;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
 }
+
+body,html{
+    height: 100%;
+}
+
+.center{
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 2%;
+    display: flex;
+    justify-content: center;
+}
+
+.clear{clear: both;}
+
+
+.container{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    top: 14em;
+    display: flex;
+}
+
+.login{
+    width: 30%;
+    height: 100%;
+    padding: 0 2%;
+    background-color: white;
+    display: block;
+}
+
+.login img{
+    margin: 20px;
+    width: 160px;
+    height: 60px;
+}
+
+.header i{
+    padding-top: 30px;
+    margin: auto 0;
+}
+
+a.icon-face {
+    padding: 10px 40px 10px 40px;
+    border-radius: 20px;
+    color: white;
+    background-color: rgb(85, 85, 131);
+    font-size: 22px;
+}
+
+a.icon-google {
+    background-color: #CA4246;
+    background-image: linear-gradient(45deg,#e0f143 50%, #e14141 50%, #62986b 66.666%, #476098 66.666%);
+    background-size: 30%;
+    background-repeat: repeat;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    padding: 10px 40px 10px 40px;
+    border-radius: 20px;
+    border: solid rgba(0, 0, 0, 0.24) 1px;
+    font-size: 22px;
+}
+
+a.icon-apple {
+    padding: 10px 40px 10px 40px;
+    border-radius: 20px;
+    color: white;
+    background-color: black;
+    font-size: 22px;
+}
+
+
+.form-login h2{
+    font-size: 1.6em;
+    letter-spacing: 3px;
+    text-align: center;
+}
+
+.form-login-mobile h2{
+    color: #ddd;
+}
+
+.form-login input[type=text],
+.form-login input[type=number],
+.form-login input[type=correo],
+.form-login input[type=password]{
+    margin-top: 5px;
+    display: block;
+    padding: 10px;
+    width: 100%;
+    border-radius: 4px;
+}
+
+
+.form-login input[type=number],
+.form-login input[type=correo]{
+    border: 1px solid rgb(152, 145, 145);
+    color: black;
+}
+
+.form-login input[type=password],
+.form-login input[type=text],
+.form-login-mobile input[type=password]{
+    background-color: #ddd;
+    border: 0;
+}
+
+.form-login span input{
+    margin-top: 15%;
+    
+}
+
+.form-login span label{
+    margin-left: 0.4em;
+    font-weight: normal;
+    color: #ddd;
+    transition: 0.2s;
+}
+
+.form-login span label:hover{
+    color: black;
+}
+
+.button {
+    font-size: 60px;
+    border: none; 
+    background: none; 
+    padding: 0; 
+    cursor: pointer; 
+    text-align: center; 
+    margin-left: -25px;
+}
+
+.button a {
+    font-size: 60px;
+}
+
+.button i {
+    position: relative;
+    float: left;
+    color: rgb(58, 58, 58);
+    left: 40%;
+    margin-top: 40px;
+    transition: 0.2s;
+}
+
+.button i:hover {
+    color: red;
+}
+
+footer{
+    position: absolute;
+    bottom: 0;
+}
+
+footer .settings{
+    position: relative;
+    bottom: 2em;
+}
+
+
+footer a{text-decoration: none;}
+
+footer p{
+    color: rgb(131, 131, 131);
+    transition: 0.2s;
+}
+
+footer p:hover{
+    color: black;
+    transform: translateY(-3px);
+}
+
+.banner{
+    position: absolute;
+    z-index: 1;
+    top:0;
+    left: 30%;
+    width: 70%;
+    height: 100%; 
+    background-image: url(../img/fondo.jpeg);
+    background-size: cover;
+    background-position: center;
+}
+.agente{
+    position: absolute;
+    z-index: 1;
+    top: 20%;
+    left: 82%;
+}
+
 #opciones {
     position: fixed;
     top: 0;
@@ -28,135 +216,7 @@ body {
     margin-top: 10px;
 }
 
-.contenedor {
-    width: 100%;
-    height: 100%;
-    position: relative;
-}
 
-.mitad-izquierda, .mitad-derecha {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.mitad-izquierda {
-    left: 0;
-    background-color: rgba(255, 93, 93, 0.5); /* Rojo con 50% de opacidad */
-}
-
-.mitad-derecha {
-    right: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* Negro con 50% de opacidad */
-}
-
-.formulario {
-    text-align: center;
-    padding: 30px;
-    background-color: white; 
-    border-radius: 10px; 
-    width: 80%; 
-    max-width: 300px; 
-    margin: 0 auto; 
-    font-weight: bold; 
-}
-
-.formulario img {
-    max-width: 100px;
-}
-
-.formulario h2 {
-    color: rgb(2, 2, 2);
-    font-weight: bold; 
-    margin-bottom: 20px;
-}
-
-.formulario input[type="text"],
-.formulario input[type="number"],
-.formulario input[type="correo"],
-.formulario input[type="password"] {
-    width: 100%; /* Ocupar todo el ancho disponible */
-    padding: 10px;
-    margin-left: -10px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    text-align: center; /* Centrar horizontalmente */
-}
-
-.formulario button[type="submit"] {
-    background-color: rgba(255, 93, 93);
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.formulario button[type="submit"]:hover {
-    background-color: rgb(240, 71, 71);
-}
-
-.formulario .objetos a {
-    color: rgb(7, 7, 7);
-    text-decoration: none;
-    margin-right: 10px;
-}
-
-.botones {
-    display: flex;
-    flex-direction: column;
-    margin-right: calc(50% - 930px);
-    
-}
-
-.inicio-btn, .registro-btn {
-    border: none;
-    padding: 20px 30px;
-    margin-bottom: 15px; 
-    border-top-left-radius: 10px; 
-    border-bottom-left-radius: 10px; 
-    border-top-right-radius: 0; 
-    border-bottom-right-radius: 0; 
-    cursor: pointer;
-    color: rgb(0, 0, 0);
-    font-size: 16px; 
-    font-weight: bold; 
-    background-color: white; 
-    text-decoration: none;
-}
-
-.inicio-btn:hover, .registro-btn:hover {
-    background-color: #f5f5f5; /* Cambiar color al pasar el ratón */
-    color: red; /* Cambiar color del texto a rojo */
-}
-
-.inicio-btn:active, .registro-btn:active {
-    color: red; /* Cambiar color del texto a rojo cuando se hace clic */
-}
-.formulario select{
-    width: 70%;
-    height: 40%;
-    font-size: 15px;
-    padding: 5px;
-    border-radius:5px ;
-    background-color: rgb(255, 255, 255);
-    transition: all 0.2s;
-}
-.formulario select:hover{
-    border: 1px solid rgb(235, 93, 93) ;
-    transition: all 0.2s;
-
-}
-.formulario input:hover{
-    border: 1px solid rgb(235, 93, 93) ;
-    transition: all 0.2s;
-}
 #agenteSeleccionado {
     width: 400px;
     height: 500px;
@@ -175,21 +235,3 @@ body {
     object-fit:fill; 
 }
 
-@media (max-width: 768px) {
-    .contenedor {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .mitad-izquierda, .mitad-derecha {
-        position: static;
-        width: 100%;
-        background-color: transparent;
-    }
-
-    .botones {
-        margin-right: 0; /* Eliminar el margen derecho */
-        margin-top: 20px; /* Añadir margen superior */
-    }
-}

@@ -57,6 +57,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -86,8 +88,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-
+    <!-- Inicio opciones -->
     <div id="opciones">
+        <a href="index.php" class="volver-link">
+            <i class="fas fa-sign-out-alt"></i>
+        </a>
         <button id="pauseButton" class="audio">
             <i id="audioIcon" class="fas fa-volume-up" onclick="pausarAudio()"></i>
         </button>
@@ -95,37 +100,53 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <source src="Assets/audio/carga.mp3" type="audio/mpeg">
         </audio>
 
-        <a href="index.php" class="volver-link">
-            <i class="fas fa-sign-out-alt"></i>
-        </a>
     </div>
-    <div class="contenedor">
-        <div class="mitad-izquierda">
-            <div class="botones">
-                <a href="login.php" class="inicio-btn">Inicio Sesión</a>
-                <a href="registro.php" class="registro-btn">Registrarme</a>
+
+    <!-- Inicio Login -->
+    <div class="login">
+        <div class="header">
+            <div class="center">
+                <img src="Assets/img/logo.png" alt="Logo Valorant">
+                <div class="clear"></div>
             </div>
-        </div>
-        <div class="mitad-derecha">
-            <div class="formulario">
-                <img src="Assets/img/Riots.webp" alt="Riot_logo"><br><br>
-                <h2>Iniciar Sesión</h2><br><br>
-                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                    <input type="text" id="correo" name="correo" placeholder="Correo electrónico" required><br><br>
-                    <input type="password" id="contraseña" name="contraseña" placeholder="Contraseña" required><br><br>
-                    <button type="submit" class="submit-btn">
-                        <i class="fas fa-arrow-right"></i>
-                    </button><br><br>
-                </form>
-                <div class="objetos">
-                    <a href=""></a>
-                    <a href="recuperar_contraseña.php">¿Olvidaste la Contraseña?</a>
-                    <a href=""></a>
+            <!-- Inicio Form Login -->
+            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                <div class="center">
+                    <div class="form-login">
+                        <h2>Inicar sesion</h2>
+                        <input type="text" id="correo" name="correo" placeholder="Username" required>
+                        <input type="password" id="contraseña" name="contraseña" placeholder="Contraseña" required>
+                        <a class="icon-face" href="https://www.facebook.com/?locale=es_LA"><i class="fab fa-facebook"></i></a>
+                        <a class="icon-google" href="https://www.google.com/intl/es-419/gmail/about/"><i class="fab fa-google"></i></a>
+                        <a class="icon-apple" href="https://www.apple.com/co/"><i class="fab fa-apple"></i></a><br>
+                        <span><input type="checkbox" id="continuar" name="continuar"><label
+                                for="continuar">Recordar</label></span>
+                        <div class="button">
+                            <button class="button">
+                                <a href=""><i class="fas fa-arrow-alt-circle-right"></i></a>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
                 </div>
-            </div>
+            </form>
         </div>
+        <!-- Inicio Footer -->
+        <footer>
+            <div class="settings">
+                <a href="registro.php">
+                    <p>Crea una Cuenta</p>
+                </a>
+                <a href="Email/recuperar.php">
+                    <p>Olvidaste tu contraseña?</p>
+                </a>
+            </div>
+        </footer>
     </div>
+    <!-- Bnner -->
+    <div class="banner" name="Banner"></div>
 </body>
+<!-- audios -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         var miAudio = document.getElementById("miAudio");

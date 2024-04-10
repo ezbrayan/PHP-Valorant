@@ -64,8 +64,6 @@ try {
     echo "Error: " . $e->getMessage();
 }
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -90,13 +88,16 @@ try {
     <link rel="icon" type="image/png" sizes="16x16" href="Assets/favicon/favicon-16x16.png">
     <link rel="manifest" href="Assets/favicon/manifest.json">
 
-    <title>Valorant - Registro</title>
+    <title>Valorant - Iniciar Sesión</title>
     <link rel="stylesheet" href="Assets/css/registro.css">
 </head>
 
 <body>
-
+    <!-- Inicio opciones -->
     <div id="opciones">
+        <a href="index.php" class="volver-link">
+            <i class="fas fa-sign-out-alt"></i>
+        </a>
         <button id="pauseButton" class="audio">
             <i id="audioIcon" class="fas fa-volume-up" onclick="pausarAudio()"></i>
         </button>
@@ -104,50 +105,69 @@ try {
             <source src="Assets/audio/carga.mp3" type="audio/mpeg">
         </audio>
 
-        <a href="index.php" class="volver-link">
-            <i class="fas fa-sign-out-alt"></i>
-        </a>
     </div>
-    <div class="contenedor">
-        <div class="mitad-izquierda">
 
-            <div id="agenteSeleccionado">
-                <img src="Assets/img/logopersonages.svg" alt="Riot_logo" style="height: 380px;">
+    <!-- Inicio Login -->
+    <div class="login">
+        <div class="header">
+            <div class="center">
+                <img src="Assets/img/logo.png" alt="Logo Valorant">
+                <div class="clear"></div>
             </div>
-            <div class="botones">
-                <a href="login.php" class="inicio-btn">Inicio Sesión</a>
-                <a href="registro.php" class="registro-btn">Registrarme</a>
-            </div>
+            <!-- Inicio Form registro -->
 
+            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                <div class="center">
+                    <div class="form-login">
+                        <h2>Registrate</h2>
+                        <input type="number" id="id" name="id" placeholder="ID del usuario" required><br><br>
+                        <input type="text" id="nombre" name="nombre" placeholder="Nombre de Usuario - Nickname"
+                            required><br><br>
+                        <input type="correo" id="correo" name="correo" placeholder="Correo Electronico"
+                            required><br><br>
+                        <input type="password" id="contraseña" name="contraseña" placeholder="Contraseña"
+                            required><br><br>
+                        <select id="avatar" name="avatar" required onchange="mostrarImagen()">
+                            <option value="">Seleccione un agente</option>
+                            <?php foreach ($agentes as $agente): ?>
+                                <option value="<?php echo $agente['id_agente']; ?>"><?php echo $agente['nombre']; ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select><br>
+
+                        <a class="icon-face" href="https://www.facebook.com/?locale=es_LA"><i
+                                class="fab fa-facebook"></i></a>
+                        <a class="icon-google" href="https://www.google.com/intl/es-419/gmail/about/"><i
+                                class="fab fa-google"></i></a>
+                        <a class="icon-apple" href="https://www.apple.com/co/"><i class="fab fa-apple"></i></a><br>
+
+                        <div class="button">
+                            <button class="button">
+                                <a href=""><i class="fas fa-arrow-alt-circle-right"></i></a>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </form>
         </div>
-        <div class="mitad-derecha">
-            <div class="formulario">
-                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                    <img src="Assets/img/Riots.webp" alt="Riot_logo">
-                    <h2>Registrarse</h2>
-                    <input type="number" id="id" name="id" placeholder="ID del usuario" required><br><br>
-                    <input type="text" id="nombre" name="nombre" placeholder="Nombre de Usuario - Nickname"
-                        required><br><br>
-                    <input type="correo" id="correo" name="correo" placeholder="Correo Electronico" required><br><br>
-                    <input type="password" id="contraseña" name="contraseña" placeholder="Contraseña" required><br><br>
-
-                    <select id="avatar" name="avatar" required onchange="mostrarImagen()">
-                        <option value="">Seleccione un agente</option>
-                        <?php foreach ($agentes as $agente): ?>
-                            <option value="<?php echo $agente['id_agente']; ?>"><?php echo $agente['nombre']; ?></option>
-                            <!-- Cambio aquí -->
-                        <?php endforeach; ?>
-                    </select><br><br>
-
-
-                    <button type="submit" class="submit-btn">
-                        <i class="fas fa-arrow-right"></i> <!-- Ícono de flecha hacia la derecha -->
-                    </button><br><br>
-                </form>
+        <!-- Inicio Footer -->
+        <footer>
+            <div class="settings">
+                <a href="login.php">
+                    <p>Ya tienes Una cuenta</p>
+                </a>
             </div>
+        </footer>
+    </div>
+    <!-- Bnner -->
+    <div class="banner" name="Banner">
+        <div class="agente" id="agenteSeleccionado">
+            <img src="Assets/img/agentes.jpg" alt="Riot_logo" style="height: 380px;">
         </div>
     </div>
 </body>
+<!-- agentes -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         var miAudio = document.getElementById("miAudio");
