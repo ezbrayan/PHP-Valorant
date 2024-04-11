@@ -1,5 +1,5 @@
 <?php
-include("../../Config/validarSesion.php");
+include ("../../Config/validarSesion.php");
 ?>
 <!doctype html>
 <html lang="en">
@@ -19,7 +19,7 @@ include("../../Config/validarSesion.php");
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/bootstrap-extended.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-    
+
     <link href="assets/css/app.css" rel="stylesheet">
     <link href="assets/css/icons.css" rel="stylesheet">
     <!-- Theme Style CSS -->
@@ -46,8 +46,10 @@ include("../../Config/validarSesion.php");
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>Panel Administrador Valorant</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Valorant - Panel Administrador </title>
 </head>
 
 <body>
@@ -68,139 +70,81 @@ include("../../Config/validarSesion.php");
             <!--navigation-->
             <ul class="metismenu" id="menu">
                 <li>
-                    <a href="index.html" >
+                    <a href="index.php">
                         <div class="parent-icon"><i class='bx bx-home-circle'></i>
                         </div>
                         <div class="menu-title">Panel Administrador</div>
                     </a>
                 </li>
+                
+                <li class="menu-label">Usuarios</li>
                 <li>
                     <a href="javascript:;" class="has-arrow">
-                        <div class="parent-icon"><i class="bx bx-category"></i>
-                        </div>
-                        <div class="menu-title">Elementos</div>
-                    </a>
-                    <ul>
-                        <li> <a href="app-emailbox.html"><i class="bx bx-right-arrow-alt"></i>Email</a>
-                        </li>
-                        <li> <a href="app-chat-box.html"><i class="bx bx-right-arrow-alt"></i>Chat Box</a>
-                        </li>
-                        <li> <a href="app-file-manager.html"><i class="bx bx-right-arrow-alt"></i>File Manager</a>
-                        </li>
-                        <li> <a href="app-contact-list.html"><i class="bx bx-right-arrow-alt"></i>Contatcs</a>
-                        </li>
-                        <li> <a href="app-to-do.html"><i class="bx bx-right-arrow-alt"></i>Todo List</a>
-                        </li>
-                        <li> <a href="app-invoice.html"><i class="bx bx-right-arrow-alt"></i>Invoice</a>
-                        </li>
-                        <li> <a href="app-fullcalender.html"><i class="bx bx-right-arrow-alt"></i>Calendar</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="menu-label">Jugadores</li>
-                <li>
-                    <a href="widgets.html">
                         <div class="parent-icon"><i class="fas fa-users"></i>
-                        </div>
-                        <div class="menu-title">Usuarios</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:;" class="has-arrow">
-                        <div class="parent-icon"><i class="fas fa-toggle-on"></i>
 
                         </div>
-                        <div class="menu-title">Estados</div>
+                        <div class="menu-title">Jugadores</div>
                     </a>
                     <ul>
-                        <li> <a href="ecommerce-products.html"><i class="bx bx-right-arrow-alt"></i>Products</a>
+                        <li> <a href="visualizar/jugadores.php"><i class="bx bx-right-arrow-alt"></i>Visualizar</a>
                         </li>
-                        <li> <a href="ecommerce-products-details.html"><i class="bx bx-right-arrow-alt"></i>Product
-                                Details</a>
-                        </li>
-                        <li> <a href="ecommerce-add-new-products.html"><i class="bx bx-right-arrow-alt"></i>Add New
-                                Products</a>
-                        </li>
-                        <li> <a href="ecommerce-orders.html"><i class="bx bx-right-arrow-alt"></i>Orders</a>
+                        <li> <a href="ecommerce-products-details.html"><i class="bx bx-right-arrow-alt"></i>Crear</a>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <a class="has-arrow" href="javascript:;">
+                    <a href="javascript:;" class="has-arrow">
                         <div class="parent-icon"><i class="fas fa-user-tag"></i>
+
                         </div>
                         <div class="menu-title">Roles</div>
                     </a>
                     <ul>
-                        <li> <a href="component-alerts.html"><i class="bx bx-right-arrow-alt"></i>Alerts</a>
+                        <li> <a href="visualizar/roles.php"><i class="bx bx-right-arrow-alt"></i>Visualizar</a>
                         </li>
-                        <li> <a href="component-accordions.html"><i class="bx bx-right-arrow-alt"></i>Accordions</a>
-                        </li>
-                        <li> <a href="component-badges.html"><i class="bx bx-right-arrow-alt"></i>Badges</a>
-                        </li>
-                        <li> <a href="component-buttons.html"><i class="bx bx-right-arrow-alt"></i>Buttons</a>
-                        </li>
-                        <li> <a href="component-cards.html"><i class="bx bx-right-arrow-alt"></i>Cards</a>
-                        </li>
-                        <li> <a href="component-carousels.html"><i class="bx bx-right-arrow-alt"></i>Carousels</a>
-                        </li>
-                        <li> <a href="component-list-groups.html"><i class="bx bx-right-arrow-alt"></i>List Groups</a>
-                        </li>
-                        <li> <a href="component-media-object.html"><i class="bx bx-right-arrow-alt"></i>Media
-                                Objects</a>
-                        </li>
-                        <li> <a href="component-modals.html"><i class="bx bx-right-arrow-alt"></i>Modals</a>
-                        </li>
-                        <li> <a href="component-navs-tabs.html"><i class="bx bx-right-arrow-alt"></i>Navs & Tabs</a>
-                        </li>
-                        <li> <a href="component-navbar.html"><i class="bx bx-right-arrow-alt"></i>Navbar</a>
-                        </li>
-                        <li> <a href="component-paginations.html"><i class="bx bx-right-arrow-alt"></i>Pagination</a>
-                        </li>
-                        <li> <a href="component-popovers-tooltips.html"><i class="bx bx-right-arrow-alt"></i>Popovers &
-                                Tooltips</a>
-                        </li>
-                        <li> <a href="component-progress-bars.html"><i class="bx bx-right-arrow-alt"></i>Progress</a>
-                        </li>
-                        <li> <a href="component-spinners.html"><i class="bx bx-right-arrow-alt"></i>Spinners</a>
-                        </li>
-                        <li> <a href="component-notifications.html"><i
-                                    class="bx bx-right-arrow-alt"></i>Notifications</a>
-                        </li>
-                        <li> <a href="component-avtars-chips.html"><i class="bx bx-right-arrow-alt"></i>Avatrs &
-                                Chips</a>
+                        <li> <a href="ecommerce-products-details.html"><i class="bx bx-right-arrow-alt"></i>Crear</a>
                         </li>
                     </ul>
                 </li>
                 <li>
                     <a class="has-arrow" href="javascript:;">
-                        <div class="parent-icon"><i class="bx bx-repeat"></i>
+                        <div class="parent-icon"><i class="fas fa-toggle-on"></i>
                         </div>
-                        <div class="menu-title">xxx</div>
+                        <div class="menu-title">Estados</div>
                     </a>
                     <ul>
-                        <li> <a href="content-grid-system.html"><i class="bx bx-right-arrow-alt"></i>Grid System</a>
+                        <li> <a href="visualizar/estado.php"><i class="bx bx-right-arrow-alt"></i>Visualizar</a>
                         </li>
-                        <li> <a href="content-typography.html"><i class="bx bx-right-arrow-alt"></i>Typography</a>
-                        </li>
-                        <li> <a href="content-text-utilities.html"><i class="bx bx-right-arrow-alt"></i>Text
-                                Utilities</a>
+                        <li> <a href="ecommerce-products-details.html"><i class="bx bx-right-arrow-alt"></i>Crear</a>
                         </li>
                     </ul>
                 </li>
                 <li>
                     <a class="has-arrow" href="javascript:;">
-                        <div class="parent-icon"> <i class="bx bx-donate-blood"></i>
+                        <div class="parent-icon"><i class="fas fa-user-astronaut"></i>
                         </div>
-                        <div class="menu-title">xxx</div>
+                        <div class="menu-title">Agentes</div>
                     </a>
                     <ul>
-                        <li> <a href="icons-line-icons.html"><i class="bx bx-right-arrow-alt"></i>Line Icons</a>
+                        <li> <a href="visualizar/agentes.php"><i class="bx bx-right-arrow-alt"></i>Visualizar</a>
                         </li>
-                        <li> <a href="icons-boxicons.html"><i class="bx bx-right-arrow-alt"></i>Boxicons</a>
+                        <li> <a href="ecommerce-products-details.html"><i class="bx bx-right-arrow-alt"></i>Crear</a>
                         </li>
-                        <li> <a href="icons-feather-icons.html"><i class="bx bx-right-arrow-alt"></i>Feather Icons</a>
+                    </ul>
+                </li>
+                <li>
+                    <a class="has-arrow" href="javascript:;">
+                        <div class="parent-icon"><i class="fas fa-star"></i>
+                        </div>
+                        <div class="menu-title">Rangos</div>
+                    </a>
+                    <ul>
+                    <ul>
+                        <li> <a href="visualizar/rango.php"><i class="bx bx-right-arrow-alt"></i>Visualizar</a>
                         </li>
+                        <li> <a href="crear/rango.php"><i class="bx bx-right-arrow-alt"></i>Crear</a>
+                        </li>
+                    </ul>
                     </ul>
                 </li>
                 <li class="menu-label">Games & Estadisticas</li>
@@ -400,7 +344,7 @@ include("../../Config/validarSesion.php");
                             <li>
                                 <div class="dropdown-divider mb-0"></div>
                             </li>
-                            <li><a class="dropdown-item" href="javascript:;"><i
+                            <li><a class="dropdown-item" href="../../Config/validarSesion.php?logout=true"><i
                                         class='bx bx-log-out-circle'></i><span>Cerrar sesión</span></a>
                             </li>
                         </ul>
@@ -454,8 +398,7 @@ include("../../Config/validarSesion.php");
                                         <h4 class="my-1 text-warning">25</h4>
                                         <p class="mb-0 font-13">-4.5% la utlima semana</p>
                                     </div>
-                                    <div
-                                        class="widgets-icons-2 rounded-circle bg-gradient-blooker text-white ms-auto">
+                                    <div class="widgets-icons-2 rounded-circle bg-gradient-blooker text-white ms-auto">
                                         <i class="fas fa-user-slash"></i>
                                     </div>
                                 </div>
@@ -471,7 +414,8 @@ include("../../Config/validarSesion.php");
                                         <h4 class="my-1 text-success">100</h4>
                                         <p class="mb-0 font-13">El cual alcanza un jugador</p>
                                     </div>
-                                    <div class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto">
+                                    <div
+                                        class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto">
                                         <i class="fas fa-star"></i>
                                     </div>
                                 </div>
