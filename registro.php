@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $puntos_salud = 150;
     $id_rango = 1;
     $id_estado = 2;
-    $id_rol = 1;
+    $id_rol = 2;
     $ultima_conexion = date('Y-m-d H:i:s');
 
     try {
