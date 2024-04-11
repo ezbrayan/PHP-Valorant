@@ -39,20 +39,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Redirigir el jugador a la página correspondiente a su tipo
             if ($user['id_rol'] == 1) {
-                header("Location: Model/Admin/index.php");
+                echo "<script>alert('Bienevenido Admin.'); window.location='Model/Admin/index.php';</script>";
                 exit();
             } elseif ($user['id_rol'] == 2) {
-                header("Location: Views/index.php");
+                echo "<script>alert('Bienevenido Jugador.'); window.location='Views/index.php';</script>";
                 exit();
             }
         } else {
             $_SESSION['error'] = 'Contraseña incorrecta.';
-            echo "<script>alert('Contraseña incorrecta.'); </script>";
+            echo "<script>alert('Contraseña incorrecta.'); window.location.href='login.php';</script>";
             exit();
         }
     } else {
         $_SESSION['error'] = 'Usuario no encontrado.';
-        echo "<script>alert('Usuario no encontrado.'); </script>";
+        echo "<script>alert('Usuario no encontrado.'); window.location.href='login.php';</script>";
         exit();
     }
 }
