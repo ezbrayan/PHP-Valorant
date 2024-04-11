@@ -142,7 +142,7 @@ include ("../../../Config/validarSesion.php");
                     <ul>
                         <li> <a href="../visualizar/rango.php"><i class="bx bx-right-arrow-alt"></i>Visualizar</a>
                         </li>
-                        <li> <a href="ecommerce-products-details.html"><i class="bx bx-right-arrow-alt"></i>Crear</a>
+                        <li> <a href="../crear/rango.php"><i class="bx bx-right-arrow-alt"></i>Crear</a>
                         </li>
                     </ul>
                     </ul>
