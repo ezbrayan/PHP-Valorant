@@ -2,40 +2,54 @@
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     require_once '../Config/conexion.php';
 
-    $documento = $_POST["documento"];
+    // Obtener el correo electrónico proporcionado por el usuario
+    $correo = $_POST["correo"];
+
+    // Verificar si el correo electrónico tiene un formato válido
+    if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+        // El correo electrónico no tiene un formato válido
+        echo "<script>alert('Por favor, ingrese un correo electrónico válido.'); window.location.href='../Email/recuperar.php?accion=registro';</script>";
+        exit; // Detener la ejecución del script
+    }
+
+    // Continuar si el correo electrónico tiene un formato válido
     $db = new Database();
     $pdo = $db->conectar();
 
-    // Verificar si el documento existe en la base de datos
-    $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE id_usuario = ?");
-    $stmt->execute([$documento]);
+    // Verificar si el correo electrónico existe en la base de datos
+    $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE correo = ?");
+    $stmt->execute([$correo]);
     $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($usuario) {
         // Generar una nueva contraseña aleatoria
-        $nueva_contraseña = bin2hex(random_bytes(8)); // Genera una cadena hexadecimal aleatoria de 16 caracteres
+        $nueva_contraseña = bin2hex(random_bytes(16));
 
         // Encriptar la nueva contraseña
         $contraseña_encriptada = password_hash($nueva_contraseña, PASSWORD_DEFAULT);
 
         // Actualizar la contraseña en la base de datos
-        $sql = "UPDATE usuarios SET contraseña = :contraseña WHERE id_usuario = :documento";
+        $sql = "UPDATE usuarios SET contraseña = :contrasena WHERE correo = :correo";
         $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(':contraseña', $contraseña_encriptada);
-        $stmt->bindParam(':documento', $documento);
+        $stmt->bindParam(':contrasena', $contraseña_encriptada);
+        $stmt->bindParam(':correo', $correo);
         $stmt->execute();
 
         // Enviar la nueva contraseña por correo electrónico
-        $mensaje = "Su nueva contraseña es: $nueva_contraseña";
-        $asunto = "Recuperación de Contraseña";
-        $headers = "From: tecnelectrics@gmail.com\r\n";
-        mail($usuario['correo'], $asunto, $mensaje, $headers);
-        echo "<script>alert('Se ha enviado una nueva contraseña al correo electrónico asociado al documento proporcionado.'); window.location.href='../login.php?accion=registro';</script>";
+        $mensaje = "Estimado usuario,\r\n\r\nHemos recibido su solicitud de recuperación de contraseña. Su nueva contraseña ha sido generada exitosamente.\r\n\r\nNueva contraseña: $nueva_contraseña\r\n\r\nPor favor, le recomendamos cambiar esta contraseña por una que le resulte más segura una vez que haya iniciado sesión en su cuenta.\r\n\r\nAtentamente,\r\nEl equipo de soporte técnico";
+        $asunto = "Recuperación de Contraseña - Valorant";
+        $headers = "From: Valorant Support <tecnelectrics@gmail.com>\r\n";
+        if (mail($correo, $asunto, $mensaje, $headers)) {
+            echo "<script>alert('Se ha enviado una nueva contraseña al correo electrónico proporcionado.'); window.location.href='../login.php?accion=registro';</script>";
+        } else {
+            echo "<script>alert('Error al enviar el correo electrónico. Por favor, inténtelo de nuevo más tarde.'); window.location.href='../Email/recuperar.php?accion=registro';</script>";
+        }
     } else {
-        echo "<script>alert('No se encontró ninguna cuenta asociada a este documento.'); window.location.href='../Email/recuperar.php?accion=registro';</script>";
+        echo "<script>alert('No se encontró ninguna cuenta asociada a este correo electrónico.'); window.location.href='../Email/recuperar.php?accion=registro';</script>";
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -92,7 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="center">
                     <div class="form-login">
                         <h2>Recupera Tu Contraseña</h2>
-                        <input type="text" id="documento" name="documento" placeholder="ID de tu Usuario" required>
+                        <input type="text" id="correo" name="correo" placeholder="Correo electronico" required>
                         <a class="icon-face" href="https://www.facebook.com/?locale=es_LA"><i
                                 class="fab fa-facebook"></i></a>
                         <a class="icon-google" href="https://www.google.com/intl/es-419/gmail/about/"><i
@@ -100,9 +114,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <a class="icon-apple" href="https://www.apple.com/co/"><i class="fab fa-apple"></i></a><br>
                         <span><input type="checkbox" id="continuar" name="continuar"><label
                                 for="continuar">Recordar</label></span>
-                                <div class="button">
+                        <div class="button">
                             <button class="button">
-                                <a href="" value="Recuperar Contraseña"><i class="fas fa-arrow-alt-circle-right"></i></a>
+                                <a href="" value="Recuperar Contraseña"><i
+                                        class="fas fa-arrow-alt-circle-right"></i></a>
                             </button>
                         </div>
                     </div>

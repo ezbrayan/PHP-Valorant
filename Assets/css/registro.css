@@ -91,7 +91,8 @@ a.icon-apple {
 .form-login input[type=text],
 .form-login input[type=number],
 .form-login input[type=correo],
-.form-login input[type=password]{
+.form-login input[type=password],
+.form-login select{
     margin-top: 5px;
     display: block;
     padding: 10px;
@@ -101,14 +102,16 @@ a.icon-apple {
 
 
 .form-login input[type=number],
-.form-login input[type=correo]{
+.form-login input[type=correo],
+.form-login select {
     border: 1px solid rgb(152, 145, 145);
     color: black;
 }
 
 .form-login input[type=password],
 .form-login input[type=text],
-.form-login-mobile input[type=password]{
+.form-login-mobile input[type=password],
+.form-login select {
     background-color: #ddd;
     border: 0;
 }

@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id = $_POST['id'];
     $nombre = $_POST['nombre'];
     $correo = $_POST['correo'];
-    $password = password_hash($_POST['contraseña'], PASSWORD_DEFAULT); // Corrección aquí
+    $password = password_hash($_POST['contraseña'], PASSWORD_DEFAULT); 
     $id_agente = $_POST['avatar'];
     $puntos_rango = 0;
     $puntos_salud = 150;
