@@ -27,8 +27,8 @@
                     echo "<td>{$row['nombre']}</td>";
                     echo "<td>
                             <div class='text-center'>
-                                <a href='../Actualizar/editar_estado.php?id={$row['id_estado']}' class='btn btn-primary btn-sm'>Editar</a>
-                                <a href='../Eliminar/eliminar_estado.php?id={$row['id_estado']}' class='btn btn-danger btn-sm'>Eliminar</a>
+                                <a href='../actualizar/estado.php?id={$row['id_estado']}' class='btn btn-primary btn-sm'>Editar</a>
+                                <a href='../eliminar/estado.php?id={$row['id_estado']}' class='btn btn-danger btn-sm'>Eliminar</a>
                             </div>
                         </td>";
                     echo "</tr>";

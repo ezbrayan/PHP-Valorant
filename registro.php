@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = password_hash($_POST['contraseña'], PASSWORD_DEFAULT); 
     $id_agente = $_POST['avatar'];
     $puntos_rango = 0;
-    $puntos_salud = 150;
+    $puntos_salud = 100;
     $id_rango = 1;
     $id_estado = 2;
     $id_rol = 2;

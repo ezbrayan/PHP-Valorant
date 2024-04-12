@@ -29,8 +29,8 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 echo "<td><img src='data:image/jpeg;base64," . base64_encode($row['foto']) . "' width='100' height='100'></td>";
                 echo "<td>
                             <div class='text-center'>
-                                <a href='../Actualizar/editar_agente.php?id={$row['id_agente']}' class='btn btn-primary btn-sm'>Editar</a>
-                                <a href='../Eliminar/eliminar_agente.php?id={$row['id_agente']}' class='btn btn-danger btn-sm'>Eliminar</a>
+                                <a href='../actualizar/agentes.php?id={$row['id_agente']}' class='btn btn-primary btn-sm'>Editar</a>
+                                <a href='../eliminar/agentes.php?id={$row['id_agente']}' class='btn btn-danger btn-sm'>Eliminar</a>
                             </div>
                         </td>";
                 echo "</tr>";

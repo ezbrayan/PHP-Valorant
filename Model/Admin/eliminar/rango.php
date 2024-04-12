@@ -19,7 +19,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         echo "<script>window.location.href = '../visualizar/rango.php';</script>";
         exit();
     } else {
-        echo "<script>alert('Error al eliminar el registro');</script>";
+        echo "<script>alert('Error al eliminar el registros');</script>";
     }
 }
 ?>

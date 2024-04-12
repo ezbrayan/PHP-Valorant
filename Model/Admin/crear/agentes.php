@@ -1,4 +1,3 @@
-<?php include "../template/header.php"; ?>
 <?php
 require_once("../../../Config/conexion.php");
 $DataBase = new Database;
@@ -8,21 +7,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nombre = $_POST["nombre"];
     $foto = file_get_contents($_FILES['foto']['tmp_name']);
 
-    $sql = "INSERT INTO rango (nombre, foto) VALUES (:nombre, :foto)";
+    $sql = "INSERT INTO agentes (nombre, foto) VALUES (:nombre, :foto)";
     $stmt = $con->prepare($sql);
 
     $stmt->execute(array(':nombre' => $nombre, ':foto' => $foto));
 
     // Redireccionar a la página actual para actualizar la tabla
-
-    echo "<script>alert('Rango creado.'); window.location='../visualizar/rango.php';</script>";
+    echo "<script>alert('Agente Exitosamente creado'); window.location='../visualizar/agentes.php';</script>";
     exit();
 }
 ?>
+<?php include "../template/header.php"; ?>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <h2 class="text-center">Crear Rango</h2>
+            <h2 class="text-center">Crear Agente</h2>
             <form method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="nombre">Nombre:</label>
@@ -39,6 +39,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 </div>
-
 
 <?php include "../template/footer.php"; ?>

@@ -39,10 +39,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Redirigir el jugador a la página correspondiente a su tipo
             if ($user['id_rol'] == 1) {
-                echo "<script>alert('Bienevenido Admin.'); window.location='Model/Admin/index.php';</script>";
+                echo "<script>alert('Bienvenido Admin.'); window.location='Model/Admin/index.php';</script>";
                 exit();
             } elseif ($user['id_rol'] == 2) {
-                echo "<script>alert('Bienevenido Jugador.'); window.location='Views/index.php';</script>";
+                echo "<script>alert('Bienvenido Jugador.'); window.location='Views/index.php';</script>";
                 exit();
             }
         } else {
