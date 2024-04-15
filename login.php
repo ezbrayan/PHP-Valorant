@@ -114,7 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="center">
                     <div class="form-login">
                         <h2>Inicar sesion</h2>
-                        <input type="text" id="correo" name="correo" placeholder="Username" required>
+                        <input type="text" id="correo" name="correo" placeholder="Correo" required>
                         <input type="password" id="contraseña" name="contraseña" placeholder="Contraseña" required>
                         <a class="icon-face" href="https://www.facebook.com/?locale=es_LA"><i class="fab fa-facebook"></i></a>
                         <a class="icon-google" href="https://www.google.com/intl/es-419/gmail/about/"><i class="fab fa-google"></i></a>

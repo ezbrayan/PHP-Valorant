@@ -163,7 +163,7 @@ try {
     <!-- Bnner -->
     <div class="banner" name="Banner">
         <div class="agente" id="agenteSeleccionado">
-            <img src="Assets/img/agentes.jpg" alt="Riot_logo" style="height: 380px;">
+            <img src="Assets/img/agentes.gif" alt="Riot_logo" style="height: 380px;">
         </div>
     </div>
 </body>

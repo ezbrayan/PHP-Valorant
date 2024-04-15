@@ -133,7 +133,7 @@ a.icon-apple {
 }
 
 .button {
-    font-size: 60px;
+    font-size: 40px;
     border: none; 
     background: none; 
     padding: 0; 
@@ -151,7 +151,6 @@ a.icon-apple {
     float: left;
     color: rgb(58, 58, 58);
     left: 40%;
-    margin-top: 40px;
     transition: 0.2s;
 }
 
