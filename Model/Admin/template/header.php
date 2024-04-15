@@ -163,27 +163,25 @@ include ("../../../Config/validarSesion.php");
                 </li>
                 <li>
                     <a class="has-arrow" href="javascript:;">
-                        <div class="parent-icon"><i class="fas fa-chart-bar"></i>
-                        </div>
-                        <div class="menu-title">Estadisticas</div>
-                    </a>
-                    <ul>
-                        <li> <a href="table-basic-table.html"><i class="bx bx-right-arrow-alt"></i>Visualizar</a>
-                        </li>
-                        <li> <a href="table-datatable.html"><i class="bx bx-right-arrow-alt"></i>Crear</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a class="has-arrow" href="javascript:;">
                         <div class="parent-icon"><i class="fas fa-tools"></i>
                         </div>
                         <div class="menu-title">Armas</div>
                     </a>
                     <ul>
-                        <li> <a href="table-basic-table.html"><i class="bx bx-right-arrow-alt"></i>Visualizar</a>
+                        <li> <a href="../visualizar/armas.php"><i class="bx bx-right-arrow-alt"></i>Visualizar</a>
                         </li>
-                        <li> <a href="table-datatable.html"><i class="bx bx-right-arrow-alt"></i>Crear</a>
+                        <li> <a href="../crear/armas.php"><i class="bx bx-right-arrow-alt"></i>Crear</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="has-arrow" href="javascript:;">
+                        <div class="parent-icon"><i class="fas fa-chart-bar"></i>
+                        </div>
+                        <div class="menu-title">Estadisticas</div>
+                    </a>
+                    <ul>
+                        <li> <a href="../visualizar/estadisticas.php"><i class="bx bx-right-arrow-alt"></i>Visualizar</a>
                         </li>
                     </ul>
                 </li>
