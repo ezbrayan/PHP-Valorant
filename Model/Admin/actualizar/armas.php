@@ -25,15 +25,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_arma']) && !empty($
 
     $balas = $_POST['balas'];
     $daño = $_POST['daño'];
+    $id_rango = $_POST['id_rango']; // Nuevo campo
 
     // Consulta SQL para actualizar el registro con el ID especificado
-    $query = "UPDATE armas SET nombre = ?, foto = ?, balas = ?, daño = ? WHERE id_arma = ?";
+    $query = "UPDATE armas SET nombre = ?, foto = ?, balas = ?, daño = ?, id_rango = ? WHERE id_arma = ?";
     $stmt = $con->prepare($query);
     $stmt->bindParam(1, $nombre, PDO::PARAM_STR);
     $stmt->bindParam(2, $foto, PDO::PARAM_LOB);
     $stmt->bindParam(3, $balas, PDO::PARAM_INT);
     $stmt->bindParam(4, $daño, PDO::PARAM_INT);
-    $stmt->bindParam(5, $id_arma, PDO::PARAM_INT);
+    $stmt->bindParam(5, $id_rango, PDO::PARAM_INT);
+    $stmt->bindParam(6, $id_arma, PDO::PARAM_INT);
 
     // Ejecutar la consulta
     if ($stmt->execute()) {
@@ -56,6 +58,12 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     $stmt->bindParam(1, $id_arma, PDO::PARAM_INT);
     $stmt->execute();
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Consulta SQL para obtener los datos de la tabla de rangos
+    $query_rangos = "SELECT id_rango, nombre FROM rango";
+    $stmt_rangos = $con->prepare($query_rangos);
+    $stmt_rangos->execute();
+    $rangos = $stmt_rangos->fetchAll(PDO::FETCH_ASSOC);
 
     // Verificar si se encontró un registro con el ID especificado
     if (!$row) {
@@ -97,6 +105,17 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                 <div class="form-group">
                     <label for="daño">Daño:</label>
                     <input type="number" class="form-control" id="daño" name="daño" value="<?php echo $row['daño']; ?>" required>
+                </div>
+                <div class="form-group">
+                    <label for="id_rango">Rango:</label>
+                    <select class="form-control" id="id_rango" name="id_rango" required>
+                        <option value="">Seleccione un rango</option>
+                        <?php foreach ($rangos as $rango): ?>
+                            <option value="<?php echo $rango['id_rango']; ?>" <?php echo ($rango['id_rango'] == $row['id_rango']) ? 'selected' : ''; ?>>
+                                <?php echo $rango['nombre']; ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
                 <div class="form-group text-center">
                     <input type="submit" class="btn btn-primary" value="Actualizar">

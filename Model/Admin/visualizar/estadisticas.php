@@ -1,18 +1,18 @@
 <?php include "../template/header.php"; ?>
 
 <?php
-require_once("../../../Config/conexion.php");
+require_once ("../../../Config/conexion.php");
 $DataBase = new Database;
 $con = $DataBase->conectar();
 
 // Consulta SQL para obtener los datos de la tabla detalles_usuarios
 $query = "SELECT du.id_detalle, du.daño_realizado, u1.nombre as nombre_atacante, u2.nombre as nombre_atacado, du.fecha, 
-                 a.foto as foto_arma, m.foto as foto_mapa
-          FROM detalles_usuarios du 
-          LEFT JOIN usuarios u1 ON du.id_jugador_atacante = u1.id_usuario
-          LEFT JOIN usuarios u2 ON du.id_jugador_atacado = u2.id_usuario
-          LEFT JOIN armas a ON du.id_arma = a.id_arma
-          LEFT JOIN mapa m ON du.id_mapa = m.id_mapa";
+                a.foto as foto_arma, m.foto as foto_mapa
+        FROM detalles_usuarios du 
+        LEFT JOIN usuarios u1 ON du.id_jugador_atacante = u1.id_usuario
+        LEFT JOIN usuarios u2 ON du.id_jugador_atacado = u2.id_usuario
+        LEFT JOIN armas a ON du.id_arma = a.id_arma
+        LEFT JOIN mapa m ON du.id_mapa = m.id_mapa";
 $stmt = $con->prepare($query);
 $stmt->execute();
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);

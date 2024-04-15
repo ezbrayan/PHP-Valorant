@@ -181,7 +181,10 @@ include ("../../../Config/validarSesion.php");
                         <div class="menu-title">Estadisticas</div>
                     </a>
                     <ul>
-                        <li> <a href="../visualizar/estadisticas.php"><i class="bx bx-right-arrow-alt"></i>Visualizar</a>
+                        <li> <a href="../visualizar/estadisticas.php"><i class="bx bx-right-arrow-alt"></i>Visualizar ataques</a>
+                        </li>
+                    </ul><ul>
+                        <li> <a href="../visualizar/estadisticasp.php"><i class="bx bx-right-arrow-alt"></i>Visualizar posiciones</a>
                         </li>
                     </ul>
                 </li>

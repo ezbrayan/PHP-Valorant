@@ -113,7 +113,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                 <div class="center">
                     <div class="form-login">
-                        <h2>Inicar sesion</h2>
+                        <h2>Inicar Sesion</h2>
                         <input type="text" id="correo" name="correo" placeholder="Correo" required>
                         <input type="password" id="contraseña" name="contraseña" placeholder="Contraseña" required>
                         <a class="icon-face" href="https://www.facebook.com/?locale=es_LA"><i class="fab fa-facebook"></i></a>

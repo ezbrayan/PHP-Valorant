@@ -21,18 +21,29 @@ $armas = $stmt_armas->fetchAll(PDO::FETCH_ASSOC);
                 <th>Foto</th>
                 <th>Balas</th>
                 <th>Daño</th>
+                <th>ID de Rango</th>
+                <th>Foto de Rango</th> <!-- Nueva columna para la foto del rango -->
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
             <?php
             foreach ($armas as $arma) {
+                // Consulta SQL para obtener la foto del rango
+                $query_rango = "SELECT foto FROM rango WHERE id_rango = :id_rango";
+                $stmt_rango = $con->prepare($query_rango);
+                $stmt_rango->bindParam(':id_rango', $arma['id_rango']);
+                $stmt_rango->execute();
+                $foto_rango = $stmt_rango->fetchColumn();
+
                 echo "<tr>";
                 echo "<td>{$arma['id_arma']}</td>";
                 echo "<td>{$arma['nombre']}</td>";
                 echo "<td><img src='data:image/jpeg;base64," . base64_encode($arma['foto']) . "' width='100' height='100'></td>";
                 echo "<td>{$arma['balas']}</td>";
                 echo "<td>{$arma['daño']}</td>";
+                echo "<td>{$arma['id_rango']}</td>";
+                echo "<td><img src='data:image/jpeg;base64," . base64_encode($foto_rango) . "' width='100' height='100'></td>"; // Mostrar la foto del rango
                 echo "<td>
                 <div class='text-center'>
                     <a href='../actualizar/armas.php?id={$arma['id_arma']}' class='btn btn-primary btn-sm'>Editar</a>
@@ -46,7 +57,5 @@ $armas = $stmt_armas->fetchAll(PDO::FETCH_ASSOC);
 
     </table>
 </div>
-
-
 
 <?php include "../template/footer.php"; ?>
