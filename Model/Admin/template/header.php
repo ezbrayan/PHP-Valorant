@@ -1,6 +1,7 @@
 <?php
 include ("../../../Config/validarSesion.php");
 ?>
+
 <!doctype html>
 <html lang="en">
 
@@ -190,17 +191,10 @@ include ("../../../Config/validarSesion.php");
                 </li>
                 <li class="menu-label">Otros</li>
                 <li>
-                    <a href="https://codervent.com/rocker/documentation/index.html" target="_blank">
+                    <a href="../visualizar/perfil.php" >
                         <div class="parent-icon"><i class="fas fa-user"></i>
                         </div>
                         <div class="menu-title">Perfil</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://themeforest.net/user/codervent" target="_blank">
-                        <div class="parent-icon"><i class="fas fa-cog"></i>
-                        </div>
-                        <div class="menu-title">Ajustes</div>
                     </a>
                 </li>
             </ul>
@@ -221,16 +215,13 @@ include ("../../../Config/validarSesion.php");
                             role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="../assets/images/avatar-admin.jpg" class="user-img" alt="user avatar">
                             <div class="user-info ps-3">
-                                <p class="user-name mb-0">Brayan Sanchez</p>
+                                <p class="user-name mb-0"><?php echo $_SESSION['jugador']['nombre']; ?></p>
                                 <p class="designattion mb-0">Admin</p>
                             </div>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="javascript:;"><i
+                            <li><a class="dropdown-item" href="../visualizar/perfil.php"><i
                                         class="bx bx-user"></i><span>Perfil</span></a>
-                            </li>
-                            <li><a class="dropdown-item" href="javascript:;"><i
-                                        class="bx bx-cog"></i><span>Ajustes</span></a>
                             </li>
                             <li>
                                 <div class="dropdown-divider mb-0"></div>

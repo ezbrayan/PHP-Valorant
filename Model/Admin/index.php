@@ -1,6 +1,65 @@
 <?php
 include ("../../Config/validarSesion.php");
 ?>
+<?php
+require_once("../../Config/conexion.php");
+$DataBase = new Database;
+$con = $DataBase->conectar();
+
+// Consulta SQL para obtener el recuento de usuarios activos y deshabilitados
+$query = "SELECT 
+            SUM(CASE WHEN id_estado = 1 THEN 1 ELSE 0 END) AS num_activos,
+            SUM(CASE WHEN id_estado = 2 THEN 1 ELSE 0 END) AS num_deshabilitados
+        FROM usuarios";
+
+// Ejecutar la consulta
+$resultado = $con->query($query);
+
+// Verificar si la consulta fue exitosa
+if ($resultado) {
+    // Obtener el resultado
+    $fila = $resultado->fetch(PDO::FETCH_ASSOC);
+    $num_activos = $fila['num_activos'];
+    $num_deshabilitados = $fila['num_deshabilitados'];
+} else {
+    echo "Error en la consulta: " . $con->errorInfo()[2];
+    exit();
+}
+
+// Consulta SQL para obtener el número de agentes
+$query_agentes = "SELECT COUNT(*) AS num_agentes FROM agentes";
+
+// Ejecutar la consulta de agentes
+$resultado_agentes = $con->query($query_agentes);
+
+// Verificar si la consulta de agentes fue exitosa
+if ($resultado_agentes) {
+    // Obtener el número de agentes
+    $fila_agentes = $resultado_agentes->fetch(PDO::FETCH_ASSOC);
+    $num_agentes = $fila_agentes['num_agentes'];
+} else {
+    echo "Error en la consulta de agentes: " . $con->errorInfo()[2];
+    exit();
+}
+// Consulta SQL para obtener el número de mapas
+$query_mapas = "SELECT COUNT(*) AS num_mapas FROM mapa";
+
+// Ejecutar la consulta de mapas
+$resultado_mapas = $con->query($query_mapas);
+
+// Verificar si la consulta de mapas fue exitosa
+if ($resultado_mapas) {
+    // Obtener el número de mapas
+    $fila_mapas = $resultado_mapas->fetch(PDO::FETCH_ASSOC);
+    $num_mapas = $fila_mapas['num_mapas'];
+} else {
+    echo "Error en la consulta de mapas: " . $con->errorInfo()[2];
+    exit();
+}
+
+?>
+
+
 <!doctype html>
 <html lang="en">
 
@@ -192,17 +251,10 @@ include ("../../Config/validarSesion.php");
                 
                 <li class="menu-label">Otros</li>
                 <li>
-                    <a href="https://codervent.com/rocker/documentation/index.html" target="_blank">
+                    <a href="visualizar/perfil.php" >
                         <div class="parent-icon"><i class="fas fa-user"></i>
                         </div>
                         <div class="menu-title">Perfil</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://themeforest.net/user/codervent" target="_blank">
-                        <div class="parent-icon"><i class="fas fa-cog"></i>
-                        </div>
-                        <div class="menu-title">Ajustes</div>
                     </a>
                 </li>
             </ul>
@@ -223,16 +275,13 @@ include ("../../Config/validarSesion.php");
                             role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="assets/images/avatar-admin.jpg" class="user-img" alt="user avatar">
                             <div class="user-info ps-3">
-                                <p class="user-name mb-0">Brayan Sanchez</p>
+                                <p class="user-name mb-0"><?php echo $_SESSION['jugador']['nombre']; ?></p>
                                 <p class="designattion mb-0">Admin</p>
                             </div>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="javascript:;"><i
+                            <li><a class="dropdown-item" href="visualizar/perfil.php"><i
                                         class="bx bx-user"></i><span>Perfil</span></a>
-                            </li>
-                            <li><a class="dropdown-item" href="javascript:;"><i
-                                        class="bx bx-cog"></i><span>Ajustes</span></a>
                             </li>
                             <li>
                                 <div class="dropdown-divider mb-0"></div>
@@ -255,9 +304,8 @@ include ("../../Config/validarSesion.php");
                             <div class="card-body">
                                 <div class="d-flex align-items-center">
                                     <div>
-                                        <p class="mb-0 text-secondary">Partidas Finalizadas</p>
-                                        <h4 class="my-1 text-info">150</h4>
-                                        <p class="mb-0 font-13">+2.5% la ultima semana</p>
+                                        <p class="mb-0 text-secondary">Mapas Disponibles</p>
+                                        <h4 class="my-1 text-info"><?php echo $num_mapas; ?></h4>
                                     </div>
                                     <div class="widgets-icons-2 rounded-circle bg-gradient-scooter text-white ms-auto">
                                         <i class="fas fa-flag-checkered"></i>
@@ -272,8 +320,7 @@ include ("../../Config/validarSesion.php");
                                 <div class="d-flex align-items-center">
                                     <div>
                                         <p class="mb-0 text-secondary">Jugadores activos</p>
-                                        <h4 class="my-1 text-danger">150</h4>
-                                        <p class="mb-0 font-13">+5.4% la ultima semana</p>
+                                        <h4 class="my-1 text-danger"><?php echo $num_activos; ?></h4>
                                     </div>
                                     <div class="widgets-icons-2 rounded-circle bg-gradient-bloody text-white ms-auto">
                                         <i class="fas fa-users"></i>
@@ -288,8 +335,7 @@ include ("../../Config/validarSesion.php");
                                 <div class="d-flex align-items-center">
                                     <div>
                                         <p class="mb-0 text-secondary">Jugadores inactivos</p>
-                                        <h4 class="my-1 text-warning">25</h4>
-                                        <p class="mb-0 font-13">-4.5% la utlima semana</p>
+                                        <h4 class="my-1 text-warning"><?php echo $num_deshabilitados; ?></h4>
                                     </div>
                                     <div class="widgets-icons-2 rounded-circle bg-gradient-blooker text-white ms-auto">
                                         <i class="fas fa-user-slash"></i>
@@ -303,13 +349,12 @@ include ("../../Config/validarSesion.php");
                             <div class="card-body">
                                 <div class="d-flex align-items-center">
                                     <div>
-                                        <p class="mb-0 text-secondary">Nivel Maximo</p>
-                                        <h4 class="my-1 text-success">100</h4>
-                                        <p class="mb-0 font-13">El cual alcanza un jugador</p>
+                                        <p class="mb-0 text-secondary">Agentes Disponibles</p>
+                                        <h4 class="my-1 text-success"><?php echo $num_agentes; ?></h4>
                                     </div>
                                     <div
                                         class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto">
-                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-user-astronaut"></i>
                                     </div>
                                 </div>
                             </div>
