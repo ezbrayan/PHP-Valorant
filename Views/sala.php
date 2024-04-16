@@ -12,7 +12,7 @@ try {
         $id_mapa = $_POST['id_mapa'];
 
         // Consulta SQL para obtener información de los jugadores en la sala
-        $sql_info_sala = "SELECT mapa.*, usuarios.id_usuario, usuarios.nombre AS nombre_jugador, usuarios.puntos_salud, usuarios.id_rango, agentes.foto AS foto_agente, rango.nombre AS nombre_rango
+        $sql_info_sala = "SELECT mapa.*, usuarios.id_usuario, usuarios.nombre AS nombre_jugador, usuarios.puntos_salud, usuarios.id_rango, agentes.tarjeta AS tarjeta_agente, rango.nombre AS nombre_rango
                           FROM mapa
                           LEFT JOIN usuarios ON mapa.jugador1_id = usuarios.id_usuario OR
                                                mapa.jugador2_id = usuarios.id_usuario OR
@@ -70,20 +70,43 @@ try {
                 $jugadores_ordenados = array_merge($jugadores_en_medio, $jugadores_al_principio);
             }
 
-            // Mostrar información de los jugadores
             echo "<div class='contenedor'>";
-            foreach ($jugadores_ordenados as $jugador) {
+
+            // Calculamos la cantidad total de jugadores
+            $total_jugadores = count($jugadores);
+            
+            // Si no hay jugadores, mostramos solo al jugador activo
+            if ($total_jugadores === 0) {
                 echo "<div class='jugador'>";
-                echo "<h2>{$jugador['nombre_jugador']}</h2>";
-                if ($jugador['id_usuario'] === $_SESSION['jugador']['id_usuario']) {
-                    echo "<img src='data:image/jpeg;base64," . base64_encode($jugador['foto_agente']) . "' alt='{$jugador['nombre_jugador']}' class='imagen-jugador-activo'>";
-                } else {
-                    echo "<img src='data:image/jpeg;base64," . base64_encode($jugador['foto_agente']) . "' alt='{$jugador['nombre_jugador']}' class='imagen-jugador'>";
-                }
-                echo "<p>Rango: {$jugador['nombre_rango']}</p>";
+                echo "<img src='data:image/jpeg;base64," . base64_encode($_SESSION['jugador']['tarjeta_agente']) . "' alt='{$_SESSION['jugador']['nombre_jugador']}' class='imagen-jugador-activo'>";
+                echo "<p>Rango: {$_SESSION['jugador']['nombre_rango']}</p>";
                 echo "</div>";
+            } else {
+                // Mostramos los jugadores disponibles
+                foreach ($jugadores_ordenados as $jugador) {
+                    echo "<div class='jugador'>";
+                    echo "<h2>{$jugador['nombre_jugador']}</h2>";
+                    if ($jugador['id_usuario'] === $_SESSION['jugador']['id_usuario']) {
+                        echo "<img src='data:image/jpeg;base64," . base64_encode($jugador['tarjeta_agente']) . "' alt='{$jugador['nombre_jugador']}' class='imagen-jugador-activo'>";
+                    } else {
+                        echo "<img src='data:image/jpeg;base64," . base64_encode($jugador['tarjeta_agente']) . "' alt='{$jugador['nombre_jugador']}' class='imagen-jugador'>";
+                    }
+                    echo "<p>Rango: {$jugador['nombre_rango']}</p>";
+                    echo "</div>";
+                }
+            
+                // Mostramos los espacios vacíos al final si es necesario
+                $espacios_vacios = 5 - $total_jugadores;
+                for ($i = 0; $i < $espacios_vacios; $i++) {
+                    echo "<div class='jugador'>";
+                    echo "<div style='background-color: red; width: 100px; height: 150px;'></div>"; // Espacio vacío con fondo rojo
+                    echo "</div>";
+                }
             }
+            
             echo "</div>";
+            
+            
 
             // Verificar la salud del jugador atacante
             $id_atacante = $_SESSION['jugador']['id_usuario'];
@@ -127,6 +150,7 @@ try {
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -137,15 +161,18 @@ try {
             justify-content: space-evenly;
             align-items: center;
         }
+
         .jugador {
             width: 200px;
             margin: 10px;
             text-align: center;
         }
+
         .imagen-jugador {
             width: 100%;
             height: auto;
         }
+
         .imagen-jugador-activo {
             width: 110%;
             height: auto;
@@ -153,6 +180,7 @@ try {
         }
     </style>
 </head>
+
 <body>
     <!-- Aquí puedes incluir tu estructura HTML para mostrar la información de la sala -->
 
@@ -176,6 +204,8 @@ try {
                 alert('Cuentas con 0% de salud. Por favor, abandona el mapa y restaura tus puntos de salud.');
             }
         });
+        
     </script>
 </body>
+
 </html>
