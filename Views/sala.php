@@ -12,7 +12,7 @@ try {
         $id_mapa = $_POST['id_mapa'];
 
         // Consulta SQL para obtener información de los jugadores en la sala
-        $sql_info_sala = "SELECT mapa.*, usuarios.id_usuario, usuarios.nombre AS nombre_jugador, agentes.foto AS foto_agente, rango.nombre AS nombre_rango
+        $sql_info_sala = "SELECT mapa.*, usuarios.id_usuario, usuarios.nombre AS nombre_jugador, usuarios.puntos_salud, usuarios.id_rango, agentes.foto AS foto_agente, rango.nombre AS nombre_rango
                           FROM mapa
                           LEFT JOIN usuarios ON mapa.jugador1_id = usuarios.id_usuario OR
                                                mapa.jugador2_id = usuarios.id_usuario OR
@@ -29,6 +29,24 @@ try {
 
         // Verificar si se encontraron jugadores en la sala
         if ($jugadores) {
+            // Iterar sobre los jugadores para verificar el rango
+            foreach ($jugadores as $jugador) {
+                // Verificar si el jugador tiene un rango diferente al del mapa
+                if ($jugador['id_rango'] !== $jugadores[0]['id_rango']) {
+                    // Iterar sobre los campos de jugador para encontrar el campo con el ID del jugador
+                    foreach (['jugador1_id', 'jugador2_id', 'jugador3_id', 'jugador4_id', 'jugador5_id'] as $campo_jugador) {
+                        // Si el ID del jugador está en el campo actual, actualizarlo a NULL
+                        if ($jugador['id_usuario'] == $jugador[$campo_jugador]) {
+                            $sql_actualizar_campo = "UPDATE mapa SET $campo_jugador = NULL WHERE id_mapa = :id_mapa";
+                            $stmt_actualizar = $db->prepare($sql_actualizar_campo);
+                            $stmt_actualizar->bindParam(':id_mapa', $id_mapa, PDO::PARAM_INT);
+                            $stmt_actualizar->execute();
+                            break; // Detener la iteración sobre los campos de jugador
+                        }
+                    }
+                }
+            }
+
             // Obtener el índice del jugador activo
             $indice_activo = array_search($_SESSION['jugador']['id_usuario'], array_column($jugadores, 'id_usuario'));
             // Obtener la cantidad total de jugadores
@@ -67,22 +85,35 @@ try {
             }
             echo "</div>";
 
-            // Botón para combatir
-            echo "<button id='btnCombatir'>Combatir</button>";
+            // Verificar la salud del jugador atacante
+            $id_atacante = $_SESSION['jugador']['id_usuario'];
+            $sql_salud_atacante = "SELECT puntos_salud FROM usuarios WHERE id_usuario = :id_atacante";
+            $stmt_salud = $db->prepare($sql_salud_atacante);
+            $stmt_salud->bindParam(':id_atacante', $id_atacante, PDO::PARAM_INT);
+            $stmt_salud->execute();
+            $salud_atacante = $stmt_salud->fetchColumn();
 
-            // Formulario para seleccionar jugador a atacar (oculto inicialmente)
-            echo "<form id='formCombatir' action='combatir.php' method='post' style='display:none;'>";
-            echo "<select name='id_atacado'>";
-            foreach ($jugadores as $jugador) {
-                if ($jugador['id_usuario'] !== $_SESSION['jugador']['id_usuario']) {
-                    echo "<option value='{$jugador['id_usuario']}'>{$jugador['nombre_jugador']}</option>";
+            // Imprimir mensaje si el jugador atacante tiene 0 de salud
+            if ($salud_atacante <= 0) {
+                echo "<div id='mensajeSalud'><script>document.getElementById('mensajeSalud').innerText = 'Cuentas con 0% de salud. Por favor, abandona el mapa y restaura tus puntos de salud.';</script></div>";
+            } else {
+                // Botón para combatir
+                echo "<div id='btnCombatirDiv'><button id='btnCombatir'>Combatir</button></div>";
+
+                // Formulario para seleccionar jugador a atacar (oculto inicialmente)
+                echo "<form id='formCombatir' action='combatir.php' method='post' style='display:none;'>";
+                echo "<select name='id_atacado'>";
+                foreach ($jugadores as $jugador) {
+                    if ($jugador['id_usuario'] !== $_SESSION['jugador']['id_usuario']) {
+                        echo "<option value='{$jugador['id_usuario']}' data-puntos-salud='{$jugador['puntos_salud']}'>{$jugador['nombre_jugador']}</option>";
+                    }
                 }
+                echo "</select>";
+                echo "<input type='hidden' name='id_atacante' value='{$_SESSION['jugador']['id_usuario']}'>";
+                echo "<input type='hidden' name='id_mapa' value='$id_mapa'>"; // Agregado el campo oculto para el id_mapa
+                echo "<button type='submit'>Atacar</button>";
+                echo "</form>";
             }
-            echo "</select>";
-            echo "<input type='hidden' name='id_atacante' value='{$_SESSION['jugador']['id_usuario']}'>";
-            echo "<input type='hidden' name='id_mapa' value='$id_mapa'>"; // Agregado el campo oculto para el id_mapa
-            echo "<button type='submit'>Atacar</button>";
-            echo "</form>";
         } else {
             echo "No hay jugadores en la sala.";
         }
@@ -129,6 +160,21 @@ try {
         document.getElementById('btnCombatir').addEventListener('click', function() {
             // Mostrar el formulario de combate
             document.getElementById('formCombatir').style.display = 'block';
+        });
+
+        // Verificar la salud del usuario atacado al enviar el formulario
+        document.getElementById('formCombatir').addEventListener('submit', function(event) {
+            var selectedOption = this.querySelector('select[name="id_atacado"] option:checked');
+            var puntosSaludAtacado = parseInt(selectedOption.getAttribute('data-puntos-salud'));
+            var puntosSaludAtacante = <?php echo $salud_atacante; ?>;
+            if (puntosSaludAtacado <= 0) {
+                event.preventDefault(); // Evitar enviar el formulario
+                alert('El jugador seleccionado tiene 0% de salud. Por favor, selecciona otro jugador.');
+            }
+            if (puntosSaludAtacante <= 0) {
+                event.preventDefault(); // Evitar enviar el formulario
+                alert('Cuentas con 0% de salud. Por favor, abandona el mapa y restaura tus puntos de salud.');
+            }
         });
     </script>
 </body>

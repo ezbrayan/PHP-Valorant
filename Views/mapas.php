@@ -18,7 +18,7 @@ if (isset($_POST['id_usuario'])) {
     $rango_usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
     // Consulta SQL para obtener los mapas con el mismo rango del usuario
-    $sql_mapas = "SELECT id_mapa, nombre, foto, jugador1_id, jugador2_id, jugador3_id, jugador4_id, jugador5_id FROM mapa WHERE id_rango = :id_rango";
+    $sql_mapas = "SELECT id_mapa, nombre, foto, jugador1_id, jugador2_id, jugador3_id, jugador4_id, jugador5_id, id_rango FROM mapa WHERE id_rango = :id_rango";
     $stmt = $db->prepare($sql_mapas);
     $stmt->bindParam(':id_rango', $rango_usuario['id_rango'], PDO::PARAM_INT);
     $stmt->execute();
@@ -78,6 +78,13 @@ if (isset($_POST['id_usuario'])) {
                 $stmt->bindParam(':id_mapa', $id_mapa, PDO::PARAM_INT);
                 $stmt->execute();
 
+                // Eliminar jugadores con id_rango diferente al del mapa
+                $sql_eliminar_jugadores = "UPDATE mapa SET jugador1_id = NULL WHERE id_mapa = :id_mapa AND jugador1_id IN (SELECT jugador_id FROM (SELECT jugador1_id AS jugador_id FROM mapa UNION SELECT jugador2_id AS jugador_id FROM mapa UNION SELECT jugador3_id AS jugador_id FROM mapa UNION SELECT jugador4_id AS jugador_id FROM mapa UNION SELECT jugador5_id AS jugador_id FROM mapa) AS jugadores WHERE jugador_id != :id_usuario AND jugador_id IS NOT NULL)";
+                $stmt = $db->prepare($sql_eliminar_jugadores);
+                $stmt->bindParam(':id_mapa', $id_mapa, PDO::PARAM_INT);
+                $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+                $stmt->execute();
+
                 echo "Te has unido al mapa exitosamente.";
             }
         }
@@ -102,7 +109,7 @@ if (isset($_POST['id_usuario'])) {
             <img src="data:image/jpeg;base64,<?= base64_encode($mapa['foto']) ?>" alt="Foto del mapa"><br>
             
             <!-- Mostrar el número de jugadores unidos -->
-            <p>Número de jugadores unidos: <?= count(array_filter($mapa)) - 3 ?>/5</p>
+            <p>Número de jugadores unidos: <?= count(array_filter($mapa)) - 4 ?>/5</p>
             
             <!-- Mostrar el botón "Unirse" o el mensaje "Ya estás unido a este mapa" según corresponda -->
             <?php if (in_array($mapa['id_mapa'], $mapas_unidos)): ?>

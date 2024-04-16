@@ -14,6 +14,12 @@ try {
         $id_atacante = $_POST['id_atacante'];
         $id_atacado = $_POST['id_atacado'];
 
+        // Actualizar el estado del jugador atacante a 3
+        $sql_update_estado = "UPDATE usuarios SET id_estado = 3 WHERE id_usuario = :id_atacante";
+        $stmt_update_estado = $db->prepare($sql_update_estado);
+        $stmt_update_estado->bindParam(':id_atacante', $id_atacante, PDO::PARAM_INT);
+        $stmt_update_estado->execute();
+
         // Obtener información del jugador atacante
         $sql_info_atacante = "SELECT u.nombre, a.foto AS foto_agente, r.nombre AS nombre_rango, r.id_rango FROM usuarios u
                               INNER JOIN agentes a ON u.id_agente = a.id_agente
@@ -48,7 +54,6 @@ try {
     echo "Error al cargar la página: " . $e->getMessage();
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -74,6 +79,9 @@ try {
             width: 110%;
             height: auto;
             margin-left: -10px;
+        }
+        #contador {
+            display: none;
         }
     </style>
 </head>
@@ -105,7 +113,35 @@ try {
         <input type="hidden" name="id_atacante" value="<?php echo $id_atacante; ?>">
         <input type="hidden" name="id_atacado" value="<?php echo $id_atacado; ?>">
         <input type="hidden" name="id_mapa" value="<?php echo $id_mapa; ?>">
-        <input type="submit" value="Disparar">
+        <!-- Agregar campo oculto para enviar el estado del atacante -->
+        <input type="hidden" name="id_estado" id="id_estado" value="3">
+        <input type="submit" id="dispararBtn" value="Disparar">
+        <div id="contador"></div>
     </form>
+
+    <script>
+        // Mostrar el contador si el estado es 3
+        var idEstado = document.getElementById("id_estado").value;
+        if (idEstado === "3") {
+            document.getElementById("dispararBtn").style.display = "none";
+            document.getElementById("contador").style.display = "block";
+            // Configurar el tiempo de espera en milisegundos (1 minuto = 60000 ms)
+            var tiempoEspera = 60000;
+            // Mostrar el contador regresivo
+            var contador = tiempoEspera / 1000;
+            var intervalo = setInterval(function() {
+                contador--;
+                document.getElementById("contador").innerHTML = "Siguiente turno en: " + contador + " segundos";
+                if (contador <= 0) {
+                    clearInterval(intervalo);
+                    document.getElementById("dispararBtn").style.display = "block";
+                    document.getElementById("contador").style.display = "none";
+                    document.getElementById("contador").innerHTML = "";
+                    // Actualizar el estado del jugador atacante a 4 después de un minuto
+                    document.getElementById("id_estado").value = "4";
+                }
+            }, 1000);
+        }
+    </script>
 </body>
 </html>
