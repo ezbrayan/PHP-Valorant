@@ -126,7 +126,7 @@ try {
             document.getElementById("dispararBtn").style.display = "none";
             document.getElementById("contador").style.display = "block";
             // Configurar el tiempo de espera en milisegundos (1 minuto = 60000 ms)
-            var tiempoEspera = 60000;
+            var tiempoEspera = 10000;
             // Mostrar el contador regresivo
             var contador = tiempoEspera / 1000;
             var intervalo = setInterval(function() {

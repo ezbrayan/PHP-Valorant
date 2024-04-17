@@ -32,7 +32,7 @@ try {
             // Iterar sobre los jugadores para verificar el rango
             foreach ($jugadores as $jugador) {
                 // Verificar si el jugador tiene un rango diferente al del mapa
-                if ($jugador['id_rango'] !== $jugadores[0]['id_rango']) {
+                if ($jugador['id_rango'] !== $jugadores[0]['id_rango'] or $jugador['puntos_salud'] <= 0) {
                     // Iterar sobre los campos de jugador para encontrar el campo con el ID del jugador
                     foreach (['jugador1_id', 'jugador2_id', 'jugador3_id', 'jugador4_id', 'jugador5_id'] as $campo_jugador) {
                         // Si el ID del jugador está en el campo actual, actualizarlo a NULL
