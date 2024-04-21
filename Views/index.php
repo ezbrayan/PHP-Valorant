@@ -40,21 +40,21 @@ try {
 
     // Actualizar el ID de rango según los puntos de rango
     $puntos_rango = $usuario['puntos_rango'];
-    if ($puntos_rango > 800) {
+    if ($puntos_rango > 2250) {
         $id_rango = 9;
-    } elseif ($puntos_rango > 700) {
+    } elseif ($puntos_rango > 2000) {
         $id_rango = 8;
-    } elseif ($puntos_rango > 600) {
+    } elseif ($puntos_rango > 1750) {
         $id_rango = 7;
-    } elseif ($puntos_rango > 500) {
+    } elseif ($puntos_rango > 1500) {
         $id_rango = 6;
-    } elseif ($puntos_rango > 400) {
+    } elseif ($puntos_rango > 1250) {
         $id_rango = 5;
-    } elseif ($puntos_rango > 300) {
+    } elseif ($puntos_rango > 1000) {
         $id_rango = 4;
-    } elseif ($puntos_rango > 200) {
+    } elseif ($puntos_rango > 750) {
         $id_rango = 3;
-    } elseif ($puntos_rango > 100) {
+    } elseif ($puntos_rango > 500) {
         $id_rango = 2;
     } else {
         $id_rango = 1;

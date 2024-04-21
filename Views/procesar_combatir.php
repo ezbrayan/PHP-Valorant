@@ -40,7 +40,7 @@ try {
         $id_arma = $_POST['id_arma'];
 
         // Obtener información del arma seleccionada
-        $sql_info_arma = "SELECT daño, nombre FROM armas WHERE id_arma = :id_arma";
+        $sql_info_arma = "SELECT daño, tipo_arma, nombre FROM armas WHERE id_arma = :id_arma";
         $stmt_arma = $db->prepare($sql_info_arma);
         $stmt_arma->bindParam(':id_arma', $id_arma, PDO::PARAM_INT);
         $stmt_arma->execute();
@@ -50,6 +50,34 @@ try {
         $resultadoDanio = calcularDanio($info_arma);
         $danio_realizado = $resultadoDanio['danio'];
         $zona_impacto = $resultadoDanio['zona'];
+
+        // Definir los puntos a agregar según el tipo de arma y la zona de impacto
+        $puntos_agregados = 0;
+        switch ($info_arma['tipo_arma']) {
+            case 1: // Tipo 1: Agregar 1 punto sin importar la zona de impacto
+                $puntos_agregados = 1;
+                break;
+            case 2: // Tipo 2: Agregar 2 puntos sin importar la zona de impacto
+                $puntos_agregados = 2;
+                break;
+            case 3: // Tipo 3: Agregar 10 puntos sin importar la zona de impacto
+                $puntos_agregados = 10;
+                break;
+            case 4: // Tipo 4: Agregar 20 puntos sin importar la zona de impacto
+                $puntos_agregados = 20;
+                break;
+        }
+
+        // Verificar el tipo de zona de impacto y sumar los puntos adicionales según corresponda
+        if ($zona_impacto === "cabeza" && $danio_realizado >= 100) {
+            $puntos_agregados += 75;
+            $mensaje_adicional = "¡Has eliminado a $nombre_atacado!";
+        } elseif ($zona_impacto !== "cabeza" && $danio_realizado >= 100) {
+            $puntos_agregados += 5;
+            $mensaje_adicional = "¡Ganas 5 puntos adicionales por el daño causado!";
+        } else {
+            $mensaje_adicional = "";
+        }
 
         // Insertar detalles del combate en la tabla detalles_usuarios
         $sql_insert_combate = "INSERT INTO detalles_usuarios (daño_realizado, id_jugador_atacante, id_jugador_atacado, fecha, id_arma, id_mapa) 
@@ -87,7 +115,7 @@ try {
         $puntos_rango_atacante = $info_atacante['puntos_rango'];
 
         // Calcular los nuevos puntos de rango del atacante
-        $nuevos_puntos_rango_atacante = $puntos_rango_atacante + $danio_realizado;
+        $nuevos_puntos_rango_atacante = $puntos_rango_atacante + $puntos_agregados;
 
         // Calcular los nuevos puntos de salud del atacado
         $nuevos_puntos_salud_atacado = $puntos_salud_atacado - $danio_realizado;
@@ -107,7 +135,7 @@ try {
         $stmt_update_atacado->execute();
 
         // Mostrar un mensaje de alerta y redireccionar a index.php
-        echo "<script>alert('¡Has infligido $danio_realizado de daño a $nombre_atacado en la $zona_impacto con el arma " . $info_arma['nombre'] . "!'); window.location.href = 'index.php';</script>";
+        echo "<script>alert('¡Has infligido $danio_realizado de daño a $nombre_atacado en la $zona_impacto con el arma " . $info_arma['nombre'] . "! $mensaje_adicional'); window.location.href = 'index.php';</script>";
     } else {
         // Si no se reciben los datos necesarios, mostrar un mensaje de error
         echo "<script>alert('Error: Datos insuficientes para procesar el combate'); window.location.href = 'index.php';</script>";
