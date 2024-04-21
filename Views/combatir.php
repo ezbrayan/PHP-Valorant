@@ -41,7 +41,7 @@ try {
         $info_atacado = $stmt_atacado->fetch(PDO::FETCH_ASSOC);
 
         // Obtener las armas del mismo rango que el jugador atacante
-        $sql_armas = "SELECT id_arma, nombre, daño FROM armas WHERE id_rango = :id_rango";
+        $sql_armas = "SELECT id_arma, nombre, foto, balas, daño FROM armas WHERE id_rango = :id_rango";
         $stmt_armas = $db->prepare($sql_armas);
         $stmt_armas->bindParam(':id_rango', $info_atacante['id_rango'], PDO::PARAM_INT);
         $stmt_armas->execute();
@@ -83,6 +83,10 @@ try {
         #contador {
             display: none;
         }
+        #imgarma img {
+            max-width: 200px;
+            height: auto;
+        }
     </style>
 </head>
 <body>
@@ -105,8 +109,9 @@ try {
     <form id='formDisparar' action='procesar_combatir.php' method='post'>
         <label for="id_arma">Selecciona un arma:</label>
         <select name="id_arma" id="id_arma">
+            <option value="">Selecciona un arma</option>
             <?php foreach ($armas as $arma) : ?>
-                <option value='<?php echo $arma['id_arma']; ?>'><?php echo $arma['nombre']; ?> - Daño: <?php echo $arma['daño']; ?></option>
+                <option value='<?php echo $arma['id_arma']; ?>' data-img="<?php echo 'data:image/jpeg;base64,' . base64_encode($arma['foto']); ?>"><?php echo $arma['nombre']; ?> - Daño: <?php echo $arma['daño']; ?>- Balas: <?php echo $arma['balas']; ?></option>
             <?php endforeach; ?>
         </select>
         <!-- Agregar campos ocultos para enviar los datos necesarios -->
@@ -119,8 +124,20 @@ try {
         <div id="contador"></div>
     </form>
 
+    <!-- Div para mostrar la imagen del arma seleccionada -->
+    <div id="imgarma"></div>
+
     <script>
-        // Mostrar el contador si el estado es 3
+        // Mostrar la imagen del arma seleccionada en el div "imgarma"
+        var selectArma = document.getElementById("id_arma");
+        var divImgArma = document.getElementById("imgarma");
+
+        selectArma.addEventListener("change", function() {
+            var selectedOption = selectArma.options[selectArma.selectedIndex];
+            var imgSrc = selectedOption.getAttribute("data-img");
+            divImgArma.innerHTML = "<img src='" + imgSrc + "' alt='Imagen del arma seleccionada'>";
+        });
+
         var idEstado = document.getElementById("id_estado").value;
         if (idEstado === "3") {
             document.getElementById("dispararBtn").style.display = "none";
