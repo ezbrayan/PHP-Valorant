@@ -1,0 +1,123 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    /* Selecciona una fuente legible */
+}
+
+#video-background {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+}
+
+#contenido {
+    position: relative;
+    z-index: 1;
+    color: white;
+    /* Color del texto sobre el video */
+    padding: 20px;
+    /* Añade un espacio alrededor del contenido */
+}
+
+.botones {
+    margin-top: 20px;
+}
+
+.botones ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.botones li {
+    margin-bottom: 10px;
+}
+
+.botones button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 16px;
+    padding-left: 30px;
+    /* Espacio para el icono */
+    cursor: pointer;
+}
+
+.puntos {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.confort {
+    width: 30%;
+    height: 100%;
+    padding: 5px;
+}
+
+.confort img {
+    width: 100%;
+    height: 100%;
+
+}
+
+.elementos {
+
+    width: 25%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0px;
+    padding: 0px;
+    
+
+}
+
+.elementos img {
+    width: 35%;
+    height: auto;
+}
+.elementos a{
+    font-size: 10px;
+    color: white;
+    text-decoration: none;
+}
+.elementos a:hover{
+    font-size: 10px;
+    color: white;
+    text-decoration: none;
+}
+
+
+.confi {
+    width: 5%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: -45%;
+}
+
+.confi img {
+    width: 50%;
+    height: 40%;
+    margin-left:40%; /* Coloca la imagen a la derecha del contenedor */
+}
+.botones{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items:center;
+    margin-top: 10%;
+}

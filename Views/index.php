@@ -76,7 +76,7 @@ $boton_restaurar_salud = '';
 if ($usuario['puntos_salud'] <= 0) {
     $boton_restaurar_salud = '<form action="restaurar_salud.php" method="post">
                                     <input type="hidden" name="id_usuario" value="' . $usuario['id_usuario'] . '">
-                                    <button type="submit">Restaurar Salud</button>
+                                    <button type="submit"><i class="fa-solid fa-diamond"></i> Restaurar Salud</button>
                                 </form>';
 }
 
@@ -84,38 +84,79 @@ if ($usuario['puntos_salud'] <= 0) {
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil de Usuario</title>
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://kit.fontawesome.com/7fd910d257.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
-    <h1>Perfil de Usuario</h1>
-    <div>
-        <h2><?= $usuario['nombre_usuario'] ?></h2>
-        <p>Puntos de vida: <?= $usuario['puntos_salud'] ?></p>
-        <p>Puntos de rango: <?= $usuario['puntos_rango'] ?></p>
-        <p>Última conexión: <?= $usuario['ultima_conexion'] ?></p>
-        <p>Rango: <?= $usuario['nombre_rango'] ?></p>
-        <img src="data:image/jpeg;base64,<?= base64_encode($usuario['foto_rango']) ?>" alt="Foto del rango"><br>
-        <p>Agente: <?= $usuario['nombre_agente'] ?></p>
-        <img src="data:image/jpeg;base64,<?= base64_encode($usuario['foto_agente']) ?>" alt="Foto del agente"><br>
-        
-        <!-- Botón "Jugar" que redirige a la página de mapas -->
-        <form action="mapas.php" method="post">
-            <input type="hidden" name="id_usuario" value="<?= $usuario['id_usuario'] ?>">
-            <button type="submit">Jugar</button>
-        </form>
-        
-        <!-- Botón "Restaurar Salud" (Mostrado si puntos_salud <= 0) -->
-        <?= $boton_restaurar_salud ?>
-        
-        <!-- Botón "Estadísticas" -->
-        <form action="estadisticas.php" method="post">
-            <input type="hidden" name="id_usuario" value="<?= $usuario['id_usuario'] ?>">
-            <button type="submit">Estadísticas</button>
-        </form>
-        <hr>
+    <video autoplay loop muted id="video-background">
+        <source src="../video/videoclove.mp4" type="video/mp4">
+        Tu navegador no soporta videos HTML5.
+    </video>
+    <div class="contenido">
+        <div class="puntos">
+            <div class="confort">
+                <img src="../img/confrontacion.png" alt="">
+
+            </div>
+            <div class="elementos">
+                <a href=""><img src="../svg/radioactivo.svg" frameborder="0" scrolling="no"></img> 0/4</a>
+                <a href=""><img src="../svg/valorant.svg" frameborder="0" scrolling="no"></img> 3000</a>
+                <a href=""><img src="../svg/carta2.svg" frameborder="0" scrolling="no"></img></a>
+                <a href=""><img src="../svg/radianita.svg" frameborder="0" scrolling="no"></img> 215</a>
+                <a href=""><img src="../svg/kingdom.svg" frameborder="0" scrolling="no"></img> 8000</a>
+            </div>
+            <div class="confi">
+                <a href=""><img src="../svg/confi.svg" frameborder="0" scrolling="no"></img></a>
+            </div>
+        </div>
+        <?php include 'nav.php'; ?>
+        <div class="botones">
+            <ul>
+                <li>
+                    <form action="mapas.php" method="post">
+                        <input type="hidden" name="id_usuario" value="<?= $usuario['id_usuario'] ?>">
+                        <button type="submit"><i class="fa-solid fa-diamond"></i> Jugar</button>
+                    </form>
+                </li>
+                <li>
+                    <?= $boton_restaurar_salud ?>
+                </li>
+                <li>
+                    <form action="estadisticas.php" method="post">
+                        <input type="hidden" name="id_usuario" value="<?= $usuario['id_usuario'] ?>">
+                        <button type="submit"><i class="fa-solid fa-diamond"></i> Estadísticas</button>
+                    </form>
+                </li>
+                <li>
+                    <form action="carrera_esport.php" method="post">
+                        <input type="hidden" name="id_usuario" value="<?= $usuario['id_usuario'] ?>">
+                        <button type="submit"> <i class="fa-solid fa-diamond"></i> Carrera Esport</button>
+                    </form>
+                </li>
+                <li>
+                    <form action="otra_pagina.php" method="post">
+                        <input type="hidden" name="id_usuario" value="<?= $usuario['id_usuario'] ?>">
+                        <button type="submit"><i class="fa-solid fa-diamond"></i> Otra Página</button>
+                    </form>
+                </li>
+                <li>
+                    <form action="ultima_pagina.php" method="post">
+                        <input type="hidden" name="id_usuario" value="<?= $usuario['id_usuario'] ?>">
+                        <button type="submit"><i class="fa-solid fa-diamond"></i> Última Página</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+
     </div>
+
 </body>
+
 </html>
