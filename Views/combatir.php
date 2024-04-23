@@ -56,6 +56,7 @@ try {
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -66,29 +67,35 @@ try {
             justify-content: space-evenly;
             align-items: center;
         }
+
         .jugador {
             width: 200px;
             margin: 10px;
             text-align: center;
         }
+
         .imagen-jugador {
             width: 100%;
             height: auto;
         }
+
         .imagen-jugador-activo {
             width: 110%;
             height: auto;
             margin-left: -10px;
         }
+
         #contador {
             display: none;
         }
+
         #imgarma img {
             max-width: 200px;
             height: auto;
         }
     </style>
 </head>
+
 <body>
     <div class='contenedor'>
         <!-- Información del jugador atacante -->
@@ -122,13 +129,33 @@ try {
         <input type="hidden" name="id_estado" id="id_estado" value="3">
         <input type="submit" id="dispararBtn" value="Disparar">
         <div id="contador"></div>
+        <div id="tiempo"></div>
     </form>
 
     <!-- Div para mostrar la imagen del arma seleccionada -->
     <div id="imgarma"></div>
 
     <script>
-        // Mostrar la imagen del arma seleccionada en el div "imgarma"
+        // Función para redireccionar a index.php
+        function redirectToIndex() {
+            window.location.href = 'index.php';
+        }
+
+        // Contador regresivo de 5 minutos
+        var tiempoRestante = 1 * 60; // 5 minutos en segundos
+        var intervaloContador = setInterval(function() {
+            tiempoRestante--;
+            if (tiempoRestante <= 0) {
+                clearInterval(intervaloContador);
+                redirectToIndex(); // Redireccionar cuando el tiempo haya terminado
+            } else {
+                var minutos = Math.floor(tiempoRestante / 60);
+                var segundos = tiempoRestante % 60;
+                var tiempoFormato = minutos.toString().padStart(2, '0') + ':' + segundos.toString().padStart(2, '0');
+                document.getElementById('tiempo').innerHTML = "Tiempo restante de partida: " + tiempoFormato;
+            }
+        }, 1000);
+
         var selectArma = document.getElementById("id_arma");
         var divImgArma = document.getElementById("imgarma");
 
@@ -160,5 +187,7 @@ try {
             }, 1000);
         }
     </script>
+
 </body>
+
 </html>
