@@ -7,18 +7,18 @@ $database = new Database();
 $pdo = $database->conectar();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $correo = $_POST["correo"];
+    $nombre = $_POST["nombre"];
     $contraseña = $_POST["contraseña"];
 
-    if (empty($correo) || empty($contraseña)) {
+    if (empty($nombre) || empty($contraseña)) {
         $_SESSION['error'] = 'Nombre de usuario y contraseña son obligatorios.';
         echo "<script>alert('Nombre de usuario y contraseña son obligatorios.'); window.location.href='login.php';</script>";
         exit();
     }
 
-    $query = "SELECT * FROM usuarios WHERE correo = :correo";
+    $query = "SELECT * FROM usuarios WHERE nombre = :nombre";
     $stmt = $pdo->prepare($query);
-    $stmt->execute(array(':correo' => $correo));
+    $stmt->execute(array(':nombre' => $nombre));
 
     if ($stmt->rowCount() == 1) {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -114,7 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="center">
                     <div class="form-login">
                         <h2>Inicar Sesion</h2>
-                        <input type="text" id="correo" name="correo" placeholder="Correo" required>
+                        <input type="text" id="nombre" name="nombre" placeholder="nombre" required>
                         <input type="password" id="contraseña" name="contraseña" placeholder="Contraseña" required>
                         <a class="icon-face" href="https://www.facebook.com/?locale=es_LA"><i class="fab fa-facebook"></i></a>
                         <a class="icon-google" href="https://www.google.com/intl/es-419/gmail/about/"><i class="fab fa-google"></i></a>

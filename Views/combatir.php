@@ -41,7 +41,7 @@ try {
         $info_atacado = $stmt_atacado->fetch(PDO::FETCH_ASSOC);
 
         // Obtener las armas del mismo rango que el jugador atacante
-        $sql_armas = "SELECT id_arma, nombre, foto, balas, daño FROM armas WHERE id_rango = :id_rango";
+        $sql_armas = "SELECT id_arma, nombre, foto, balas, daño FROM armas WHERE id_rango <= :id_rango";
         $stmt_armas = $db->prepare($sql_armas);
         $stmt_armas->bindParam(':id_rango', $info_atacante['id_rango'], PDO::PARAM_INT);
         $stmt_armas->execute();
