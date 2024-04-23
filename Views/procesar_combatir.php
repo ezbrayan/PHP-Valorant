@@ -3,7 +3,8 @@ require_once '../Config/validar_sesion.php';
 require_once '../Config/conexion.php';
 
 // Función para simular el azar y calcular el daño
-function calcularDanio($arma) {
+function calcularDanio($arma)
+{
     // Generar un número aleatorio para determinar la zona de impacto
     $zona_impacto = rand(1, 3); // 1: cabeza, 2: piernas/pies, 3: otras zonas
 
@@ -127,12 +128,22 @@ try {
         $stmt_update_atacante->bindParam(':id_atacante', $id_atacante, PDO::PARAM_INT);
         $stmt_update_atacante->execute();
 
-        // Actualizar los puntos de salud del atacado en la base de datos
+
+
         $sql_update_atacado = "UPDATE usuarios SET puntos_salud = :puntos_salud WHERE id_usuario = :id_atacado";
         $stmt_update_atacado = $db->prepare($sql_update_atacado);
         $stmt_update_atacado->bindParam(':puntos_salud', $nuevos_puntos_salud_atacado, PDO::PARAM_INT);
         $stmt_update_atacado->bindParam(':id_atacado', $id_atacado, PDO::PARAM_INT);
         $stmt_update_atacado->execute();
+
+        $mensaje_atacado = "¡Has sido atacado, recibiste $danio_realizado % en la zona $zona_impacto, contraataca!";
+        $sql_insert_mensaje = "UPDATE usuarios SET mensaje = :mensaje WHERE id_usuario = :id_atacado";
+        $stmt_insert_mensaje = $db->prepare($sql_insert_mensaje);
+        $stmt_insert_mensaje->bindParam(':mensaje', $mensaje_atacado, PDO::PARAM_STR);
+        $stmt_insert_mensaje->bindParam(':id_atacado', $id_atacado, PDO::PARAM_INT);
+        $stmt_insert_mensaje->execute();
+
+
 
         // Mostrar un mensaje de alerta y redireccionar a index.php
         echo "<script>alert('¡Has infligido $danio_realizado de daño a $nombre_atacado en la $zona_impacto con el arma " . $info_arma['nombre'] . "! $mensaje_adicional'); window.location.href = 'index.php';</script>";
@@ -143,4 +154,3 @@ try {
 } catch (PDOException $e) {
     echo "<script>alert('Error al procesar el combate: " . $e->getMessage() . "'); window.location.href = 'index.php';</script>";
 }
-?>

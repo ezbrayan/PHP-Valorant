@@ -20,7 +20,8 @@ $id_usuario = $_SESSION['jugador']['id_usuario'];
 // Consulta SQL para obtener los datos del jugador en sesión
 $sql = "SELECT u.id_usuario, u.nombre AS nombre_usuario, u.puntos_salud, u.puntos_rango, 
                u.ultima_conexion, a.nombre AS nombre_agente, a.foto AS foto_agente, 
-               a.tarjeta AS tarjeta_agente, r.nombre AS nombre_rango, r.foto AS foto_rango
+               a.tarjeta AS tarjeta_agente, r.nombre AS nombre_rango, r.foto AS foto_rango,
+               u.mensaje
         FROM usuarios u
         LEFT JOIN agentes a ON u.id_agente = a.id_agente
         LEFT JOIN rango r ON u.id_rango = r.id_rango
@@ -245,6 +246,9 @@ try {
             </li>
             <li>
                 Rango: <?= $usuario['nombre_rango'] ?>
+            </li>
+            <li>
+                mensajes: <?= $usuario['mensaje'] ?>
             </li>
         </ul>
     </nav>
