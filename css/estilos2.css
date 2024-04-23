@@ -4,7 +4,7 @@
     right: -250px; /* Cambia a la derecha */
     width: 250px;
     height: 100%;
-    background: #343a40;
+    background: #ffffff;
     transition: all 0.3s;
     margin-top: 55px;
 }
@@ -38,4 +38,8 @@
     height: 50px;
     cursor: pointer;
     z-index: 9999; /* Asegura que esté sobre el contenido */
+}
+.datos{
+    width: 500px;
+   display: flex;
 }

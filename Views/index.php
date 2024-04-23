@@ -74,10 +74,10 @@ try {
 // Botón "Restaurar Salud"
 $boton_restaurar_salud = '';
 if ($usuario['puntos_salud'] <= 0) {
-    $boton_restaurar_salud = '<form action="restaurar_salud.php" method="post">
+    $boton_restaurar_salud = '<div class="salud"><form action="restaurar_salud.php" method="post">
                                     <input type="hidden" name="id_usuario" value="' . $usuario['id_usuario'] . '">
                                     <button type="submit"><i class="fa-solid fa-diamond"></i> Restaurar Salud</button>
-                                </form>';
+                                </form></div>';
 }
 
 ?>
@@ -92,7 +92,7 @@ if ($usuario['puntos_salud'] <= 0) {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/stilos_index.css">
+    <link rel="stylesheet" href="../css/styles2.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="https://kit.fontawesome.com/7fd910d257.js" crossorigin="anonymous"></script>
 </head>
@@ -103,22 +103,7 @@ if ($usuario['puntos_salud'] <= 0) {
         Tu navegador no soporta videos HTML5.
     </video>
     <div class="contenido">
-        <div class="puntos">
-            <div class="confort">
-                <img src="../img/confrontacion.png" alt="">
-
-            </div>
-            <div class="elementos">
-                <a href=""><img src="../svg/radioactivo.svg" frameborder="0" scrolling="no"></img> 0/4</a>
-                <a href=""><img src="../svg/valorant.svg" frameborder="0" scrolling="no"></img> 3000</a>
-                <a href=""><img src="../svg/carta2.svg" frameborder="0" scrolling="no"></img></a>
-                <a href=""><img src="../svg/radianita.svg" frameborder="0" scrolling="no"></img> 215</a>
-                <a href=""><img src="../svg/kingdom.svg" frameborder="0" scrolling="no"></img> 8000</a>
-            </div>
-            <div class="confi">
-                <a href=""><img src="../svg/confi.svg" frameborder="0" scrolling="no"></img></a>
-            </div>
-        </div>
+    <?php include 'nav2.php'; ?>
         <?php include 'nav.php'; ?>
         <div class="botones">
             <ul>
@@ -134,25 +119,25 @@ if ($usuario['puntos_salud'] <= 0) {
                 <li>
                     <form action="estadisticas.php" method="post">
                         <input type="hidden" name="id_usuario" value="<?= $usuario['id_usuario'] ?>">
-                        <button type="submit"><i class="fa-solid fa-diamond"></i> Estadísticas</button>
+                        <button type="submit"><i class="fa-solid fa-diamond"></i> Carrera</button>
                     </form>
                 </li>
                 <li>
                     <form action="carrera_esport.php" method="post">
                         <input type="hidden" name="id_usuario" value="<?= $usuario['id_usuario'] ?>">
-                        <button type="submit"> <i class="fa-solid fa-diamond"></i> Carrera Esport</button>
+                        <button type="submit"> <i class="fa-solid fa-diamond"></i> Agentes</button>
                     </form>
                 </li>
                 <li>
                     <form action="otra_pagina.php" method="post">
                         <input type="hidden" name="id_usuario" value="<?= $usuario['id_usuario'] ?>">
-                        <button type="submit"><i class="fa-solid fa-diamond"></i> Otra Página</button>
+                        <button type="submit"><i class="fa-solid fa-diamond"></i> Mapas</button>
                     </form>
                 </li>
                 <li>
                     <form action="ultima_pagina.php" method="post">
                         <input type="hidden" name="id_usuario" value="<?= $usuario['id_usuario'] ?>">
-                        <button type="submit"><i class="fa-solid fa-diamond"></i> Última Página</button>
+                        <button type="submit"><i class="fa-solid fa-diamond"></i> Armas</button>
                     </form>
                 </li>
             </ul>

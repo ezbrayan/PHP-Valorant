@@ -12,7 +12,7 @@ try {
         $id_mapa = $_POST['id_mapa'];
 
         // Consulta SQL para obtener información de los jugadores en la sala
-        $sql_info_sala = "SELECT mapa.*, usuarios.id_usuario, usuarios.nombre AS nombre_jugador, usuarios.puntos_salud, usuarios.id_rango, agentes.tarjeta AS tarjeta_agente, rango.nombre AS nombre_rango
+        $sql_info_sala = "SELECT mapa.*, usuarios.id_usuario, usuarios.nombre AS nombre_jugador, usuarios.puntos_salud, usuarios.id_rango, agentes.tarjeta AS tarjeta_agente, rango.foto AS foto_rango
                           FROM mapa
                           LEFT JOIN usuarios ON mapa.jugador1_id = usuarios.id_usuario OR
                                                mapa.jugador2_id = usuarios.id_usuario OR
@@ -69,12 +69,13 @@ try {
                 $jugadores_en_medio = array_slice($jugadores, $indice_en_medio, $total_jugadores - $indice_en_medio);
                 $jugadores_ordenados = array_merge($jugadores_en_medio, $jugadores_al_principio);
             }
-
+            echo "<div class='contenido'>";
+            include 'nav2.php';
             echo "<div class='contenedor'>";
 
             // Calculamos la cantidad total de jugadores
             $total_jugadores = count($jugadores);
-            
+
             // Si no hay jugadores, mostramos solo al jugador activo
             if ($total_jugadores === 0) {
                 echo "<div class='jugador'>";
@@ -86,27 +87,33 @@ try {
                 foreach ($jugadores_ordenados as $jugador) {
                     echo "<div class='jugador'>";
                     echo "<h2>{$jugador['nombre_jugador']}</h2>";
+
                     if ($jugador['id_usuario'] === $_SESSION['jugador']['id_usuario']) {
+                        echo "<b>(TÚ)</b>";
                         echo "<img src='data:image/jpeg;base64," . base64_encode($jugador['tarjeta_agente']) . "' alt='{$jugador['nombre_jugador']}' class='imagen-jugador-activo'>";
                     } else {
                         echo "<img src='data:image/jpeg;base64," . base64_encode($jugador['tarjeta_agente']) . "' alt='{$jugador['nombre_jugador']}' class='imagen-jugador'>";
                     }
-                    echo "<p>Rango: {$jugador['nombre_rango']}</p>";
+                    // Mostrar la foto del rango en lugar del nombre
+                    echo "<img src='data:image/jpeg;base64," . base64_encode($jugador['foto_rango']) . "' alt='{$jugador['nombre_jugador']}' class='imagen-rango'>";
                     echo "</div>";
                 }
-            
+
                 // Mostramos los espacios vacíos al final si es necesario
                 $espacios_vacios = 5 - $total_jugadores;
                 for ($i = 0; $i < $espacios_vacios; $i++) {
-                    echo "<div class='jugador'>";
-                    echo "<div style='background-color: red; width: 100px; height: 150px;'></div>"; // Espacio vacío con fondo rojo
+                    echo "<div class='jugador' style='position: relative; z-index: 0; margin-left:-20px;'>";
+                    echo "<div style='background-color: transparent; width: 150px; height: 300px; border: 2px solid white; display: flex; justify-content: center; align-items: center;'>";
+                    echo '<i class="fas fa-plus" style="font-size: 24px;"></i>';
+                    echo "</div>";
                     echo "</div>";
                 }
             }
-            
+
             echo "</div>";
-            
-            
+            echo "</div>";
+
+
 
             // Verificar la salud del jugador atacante
             $id_atacante = $_SESSION['jugador']['id_usuario'];
@@ -155,34 +162,84 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jugadores en la sala</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://kit.fontawesome.com/7fd910d257.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
     <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            /* Selecciona una fuente legible */
+        }
+
+        #video-background {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -100;
+        }
+
+        #contenido {
+            position: relative;
+            z-index: 1;
+            color: white;
+            /* Color del texto sobre el video */
+            padding: 20px;
+            /* Añade un espacio alrededor del contenido */
+        }
+
         .contenedor {
             display: flex;
             justify-content: space-evenly;
             align-items: center;
+            color: white;
+            font-family: "Anton", sans-serif;
+            margin-top: -2%;
         }
 
         .jugador {
-            width: 200px;
-            margin: 10px;
-            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .imagen-jugador {
-            width: 100%;
+            margin-bottom: 10px;
+            width: 60%;
             height: auto;
+            border: 2px solid white;
+            margin-left: -20px;
+        }
+
+        .imagen-rango {
+            margin-top: -10%;
+            width: 20%;
+            margin-left: -20px;
         }
 
         .imagen-jugador-activo {
-            width: 110%;
+            width: 70%;
+            border: 2px solid white;
             height: auto;
-            margin-left: -10p;
+            margin-left: -20px;
+
+
         }
     </style>
 </head>
 
 <body>
-    <!-- Aquí puedes incluir tu estructura HTML para mostrar la información de la sala -->
+    <video autoplay loop muted id="video-background">
+        <source src="../video/videoclove.mp4" type="video/mp4">
+        Tu navegador no soporta videos HTML5.
+    </video>
 
     <script>
         document.getElementById('btnCombatir').addEventListener('click', function() {
@@ -204,7 +261,6 @@ try {
                 alert('Cuentas con 0% de salud. Por favor, abandona el mapa y restaura tus puntos de salud.');
             }
         });
-        
     </script>
 </body>
 
