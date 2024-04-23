@@ -89,7 +89,10 @@ if ($usuario['puntos_salud'] <= 0) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil de Usuario</title>
-    <link rel="stylesheet" href="../css/index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/stilos_index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="https://kit.fontawesome.com/7fd910d257.js" crossorigin="anonymous"></script>
 </head>
@@ -122,7 +125,7 @@ if ($usuario['puntos_salud'] <= 0) {
                 <li>
                     <form action="mapas.php" method="post">
                         <input type="hidden" name="id_usuario" value="<?= $usuario['id_usuario'] ?>">
-                        <button type="submit"><i class="fa-solid fa-diamond"></i> Jugar</button>
+                        <button type="submit" id="jugar"><i class="fa-solid fa-diamond"></i> Jugar</button>
                     </form>
                 </li>
                 <li>
