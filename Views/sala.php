@@ -83,10 +83,23 @@ try {
                 echo "<p>Rango: {$_SESSION['jugador']['nombre_rango']}</p>";
                 echo "</div>";
             } else {
-                // Mostramos los jugadores disponibles
+                // Ordenar los jugadores según los puntos de salud de forma descendente
+                usort($jugadores_ordenados, function ($a, $b) {
+                    return $b['puntos_salud'] - $a['puntos_salud'];
+                });
+
+                // Mostrar los jugadores y asignarles números de posición
+                $posicion = 1; // Inicializamos la variable de posición
+                $puntos_salud_anterior = null; // Variable para comparar puntos de salud
                 foreach ($jugadores_ordenados as $jugador) {
                     echo "<div class='jugador'>";
-                    echo "<h2>{$jugador['nombre_jugador']}</h2>";
+                    // Verificar si los puntos de salud son diferentes del jugador anterior
+                    if ($jugador['puntos_salud'] !== $puntos_salud_anterior) {
+                        echo "<h2>{$jugador['nombre_jugador']} ($posicion)</h2>"; // Mostrar la posición solo si los puntos de salud son diferentes
+                    } else {
+                        echo "<h2>{$jugador['nombre_jugador']}</h2>"; // No mostrar posición si los puntos de salud son iguales
+                    }
+                    $puntos_salud_anterior = $jugador['puntos_salud']; // Actualizar puntos de salud anterior
 
                     if ($jugador['id_usuario'] === $_SESSION['jugador']['id_usuario']) {
                         echo "<b>(TÚ)</b>";
@@ -97,7 +110,9 @@ try {
                     // Mostrar la foto del rango en lugar del nombre
                     echo "<img src='data:image/jpeg;base64," . base64_encode($jugador['foto_rango']) . "' alt='{$jugador['nombre_jugador']}' class='imagen-rango'>";
                     echo "</div>";
+                    $posicion++; // Incrementar posición para el siguiente jugador
                 }
+
 
                 // Mostramos los espacios vacíos al final si es necesario
                 $espacios_vacios = 5 - $total_jugadores;
