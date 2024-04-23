@@ -21,11 +21,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id']) && !empty($_POST
         $imagen = $stmt_imagen->fetchColumn();
     }
 
+    // Procesar la tarjeta si se ha subido
+    if ($_FILES['tarjeta']['size'] > 0) {
+        $tarjeta = file_get_contents($_FILES['tarjeta']['tmp_name']);
+    } else {
+        // Si no se ha subido una tarjeta, mantener la tarjeta existente
+        $query_tarjeta = "SELECT tarjeta FROM agentes WHERE id_agente = :id_agente";
+        $stmt_tarjeta = $con->prepare($query_tarjeta);
+        $stmt_tarjeta->bindParam(':id_agente', $id_agente, PDO::PARAM_INT);
+        $stmt_tarjeta->execute();
+        $tarjeta = $stmt_tarjeta->fetchColumn();
+    }
+
     // Consulta SQL para actualizar el registro con el ID especificado
-    $query = "UPDATE agentes SET nombre = :nombre, foto = :imagen WHERE id_agente = :id_agente";
+    $query = "UPDATE agentes SET nombre = :nombre, foto = :imagen, tarjeta = :tarjeta WHERE id_agente = :id_agente";
     $stmt = $con->prepare($query);
     $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
     $stmt->bindParam(':imagen', $imagen, PDO::PARAM_LOB);
+    $stmt->bindParam(':tarjeta', $tarjeta, PDO::PARAM_LOB);
     $stmt->bindParam(':id_agente', $id_agente, PDO::PARAM_INT);
 
     // Ejecutar la consulta
@@ -77,6 +90,15 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                 <div class="form-group">
                     <label for="imagen">Imagen:</label>
                     <input type="file" class="form-control-file" id="imagen" name="imagen">
+                </div>
+                <!-- Visualizar la tarjeta actual -->
+                <div class="form-group">
+                    <label>Tarjeta Actual:</label><br>
+                    <img src="data:image/jpeg;base64,<?php echo base64_encode($row['tarjeta']); ?>" width="100" height="100" alt="Tarjeta actual">
+                </div>
+                <div class="form-group">
+                    <label for="tarjeta">Tarjeta:</label>
+                    <input type="file" class="form-control-file" id="tarjeta" name="tarjeta">
                 </div>
 
                 <div class="form-group text-center">

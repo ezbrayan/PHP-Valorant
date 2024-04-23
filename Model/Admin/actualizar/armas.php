@@ -26,16 +26,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_arma']) && !empty($
     $balas = $_POST['balas'];
     $daño = $_POST['daño'];
     $id_rango = $_POST['id_rango']; // Nuevo campo
+    $id_tipo_arma = $_POST['id_tipo_arma']; // Nuevo campo
 
     // Consulta SQL para actualizar el registro con el ID especificado
-    $query = "UPDATE armas SET nombre = ?, foto = ?, balas = ?, daño = ?, id_rango = ? WHERE id_arma = ?";
+    $query = "UPDATE armas SET nombre = ?, foto = ?, balas = ?, daño = ?, id_rango = ?, tipo_arma = ? WHERE id_arma = ?";
     $stmt = $con->prepare($query);
     $stmt->bindParam(1, $nombre, PDO::PARAM_STR);
     $stmt->bindParam(2, $foto, PDO::PARAM_LOB);
     $stmt->bindParam(3, $balas, PDO::PARAM_INT);
     $stmt->bindParam(4, $daño, PDO::PARAM_INT);
     $stmt->bindParam(5, $id_rango, PDO::PARAM_INT);
-    $stmt->bindParam(6, $id_arma, PDO::PARAM_INT);
+    $stmt->bindParam(6, $id_tipo_arma, PDO::PARAM_INT);
+    $stmt->bindParam(7, $id_arma, PDO::PARAM_INT);
 
     // Ejecutar la consulta
     if ($stmt->execute()) {
@@ -64,6 +66,12 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     $stmt_rangos = $con->prepare($query_rangos);
     $stmt_rangos->execute();
     $rangos = $stmt_rangos->fetchAll(PDO::FETCH_ASSOC);
+
+    // Consulta SQL para obtener los tipos de arma
+    $query_tipos_arma = "SELECT id_tp_arma, nombre FROM tipo_arma";
+    $stmt_tipos_arma = $con->prepare($query_tipos_arma);
+    $stmt_tipos_arma->execute();
+    $tipos_arma = $stmt_tipos_arma->fetchAll(PDO::FETCH_ASSOC);
 
     // Verificar si se encontró un registro con el ID especificado
     if (!$row) {
@@ -113,6 +121,17 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                         <?php foreach ($rangos as $rango): ?>
                             <option value="<?php echo $rango['id_rango']; ?>" <?php echo ($rango['id_rango'] == $row['id_rango']) ? 'selected' : ''; ?>>
                                 <?php echo $rango['nombre']; ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="id_tipo_arma">Tipo de Arma:</label>
+                    <select class="form-control" id="id_tipo_arma" name="id_tipo_arma" required>
+                        <option value="">Seleccione un tipo de arma</option>
+                        <?php foreach ($tipos_arma as $tipo_arma): ?>
+                            <option value="<?php echo $tipo_arma['id_tp_arma']; ?>" <?php echo ($tipo_arma['id_tp_arma'] == $row['tipo_arma']) ? 'selected' : ''; ?>>
+                                <?php echo $tipo_arma['nombre']; ?>
                             </option>
                         <?php endforeach; ?>
                     </select>

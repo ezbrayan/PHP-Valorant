@@ -6,11 +6,12 @@ $con = $DataBase->conectar();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nombre = $_POST["nombre"];
     $foto = file_get_contents($_FILES['foto']['tmp_name']);
+    $tarjeta = file_get_contents($_FILES['tarjeta']['tmp_name']);
 
-    $sql = "INSERT INTO agentes (nombre, foto) VALUES (:nombre, :foto)";
+    $sql = "INSERT INTO agentes (nombre, foto, tarjeta) VALUES (:nombre, :foto, :tarjeta)";
     $stmt = $con->prepare($sql);
 
-    $stmt->execute(array(':nombre' => $nombre, ':foto' => $foto));
+    $stmt->execute(array(':nombre' => $nombre, ':foto' => $foto, ':tarjeta' => $tarjeta));
 
     // Redireccionar a la página actual para actualizar la tabla
     echo "<script>alert('Agente Exitosamente creado'); window.location='../visualizar/agentes.php';</script>";
@@ -31,6 +32,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="form-group">
                     <label for="foto">Foto:</label>
                     <input type="file" class="form-control-file" name="foto" accept="image/jpeg" required>
+                </div>
+                <div class="form-group">
+                    <label for="tarjeta">Tarjeta:</label>
+                    <input type="file" class="form-control-file" name="tarjeta" accept="image/jpeg" required>
                 </div>
                 <div class="form-group text-center">
                     <input type="submit" class="btn btn-primary" value="Agregar">

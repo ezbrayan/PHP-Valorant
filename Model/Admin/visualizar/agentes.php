@@ -17,6 +17,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <th>ID Agente</th>
                 <th>Nombre</th>
                 <th>Foto</th>
+                <th>Tarjeta</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -27,6 +28,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 echo "<td>{$row['id_agente']}</td>";
                 echo "<td>{$row['nombre']}</td>";
                 echo "<td><img src='data:image/jpeg;base64," . base64_encode($row['foto']) . "' width='100' height='100'></td>";
+                echo "<td><img src='data:image/jpeg;base64," . base64_encode($row['tarjeta']) . "' width='100' height='100'></td>";
                 echo "<td>
                             <div class='text-center'>
                                 <a href='../actualizar/agentes.php?id={$row['id_agente']}' class='btn btn-primary btn-sm'>Editar</a>

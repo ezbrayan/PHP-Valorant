@@ -148,6 +148,21 @@ include ("../../../Config/validarSesion.php");
                     </ul>
                     </ul>
                 </li>
+                <li>
+                    <a class="has-arrow" href="javascript:;">
+                        <div class="parent-icon"><i class="fas fa-toolbox"></i>
+                        </div>
+                        <div class="menu-title">Tipo_Armas</div>
+                    </a>
+                    <ul>
+                    <ul>
+                        <li> <a href="../visualizar/tarmas.php"><i class="bx bx-right-arrow-alt"></i>Visualizar</a>
+                        </li>
+                        <li> <a href="../crear/tarmas.php"><i class="bx bx-right-arrow-alt"></i>Crear</a>
+                        </li>
+                    </ul>
+                    </ul>
+                </li>
                 <li class="menu-label">Mapas & Estadisticas</li>
                 <li>
                     <a class="has-arrow" href="javascript:;">
@@ -183,9 +198,6 @@ include ("../../../Config/validarSesion.php");
                     </a>
                     <ul>
                         <li> <a href="../visualizar/estadisticas.php"><i class="bx bx-right-arrow-alt"></i>Visualizar ataques</a>
-                        </li>
-                    </ul><ul>
-                        <li> <a href="../visualizar/estadisticasp.php"><i class="bx bx-right-arrow-alt"></i>Visualizar posiciones</a>
                         </li>
                     </ul>
                 </li>

@@ -6,7 +6,9 @@ $DataBase = new Database;
 $con = $DataBase->conectar();
 
 // Consulta SQL para obtener los datos de la tabla de armas
-$query_armas = "SELECT * FROM armas";
+$query_armas = "SELECT a.*, ta.nombre AS nombre_tipo_arma 
+                FROM armas a
+                INNER JOIN tipo_arma ta ON a.tipo_arma = ta.id_tp_arma";
 $stmt_armas = $con->prepare($query_armas);
 $stmt_armas->execute();
 $armas = $stmt_armas->fetchAll(PDO::FETCH_ASSOC);
@@ -21,8 +23,8 @@ $armas = $stmt_armas->fetchAll(PDO::FETCH_ASSOC);
                 <th>Foto</th>
                 <th>Balas</th>
                 <th>Daño</th>
-                <th>ID de Rango</th>
-                <th>Foto de Rango</th> <!-- Nueva columna para la foto del rango -->
+                <th>Foto de Rango</th>
+                <th>Tipo de Arma</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -42,8 +44,8 @@ $armas = $stmt_armas->fetchAll(PDO::FETCH_ASSOC);
                 echo "<td><img src='data:image/jpeg;base64," . base64_encode($arma['foto']) . "' width='100' height='100'></td>";
                 echo "<td>{$arma['balas']}</td>";
                 echo "<td>{$arma['daño']}</td>";
-                echo "<td>{$arma['id_rango']}</td>";
                 echo "<td><img src='data:image/jpeg;base64," . base64_encode($foto_rango) . "' width='100' height='100'></td>"; // Mostrar la foto del rango
+                echo "<td>{$arma['nombre_tipo_arma']}</td>";
                 echo "<td>
                 <div class='text-center'>
                     <a href='../actualizar/armas.php?id={$arma['id_arma']}' class='btn btn-primary btn-sm'>Editar</a>
