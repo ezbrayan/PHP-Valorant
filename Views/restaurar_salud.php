@@ -29,7 +29,7 @@ try {
     $stmt->execute();
 
     // Redireccionar de vuelta al perfil del usuario
-    header("Location: perfil_usuario.php");
+    header("Location: index.php");
     exit;
 } catch (PDOException $e) {
     echo 'Error al restaurar la salud: ' . $e->getMessage();
