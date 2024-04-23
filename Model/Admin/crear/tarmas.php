@@ -1,37 +1,43 @@
-<?php 
-// Incluir el encabezado de la página
-include "../template/header.php";
-
-// Incluir el archivo de conexión a la base de datos
+<?php include "../template/header.php"; ?>
+<?php
 require_once("../../../Config/conexion.php");
 $DataBase = new Database;
 $con = $DataBase->conectar();
 
-// Verificar si se ha enviado el formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $id_tp_arma = $_POST["id_tp_arma"];
     $nombre = $_POST["nombre"];
 
-    // Consulta SQL para insertar un nuevo tipo de arma en la tabla
-    $sql = "INSERT INTO tipo_arma (NOMBRE) VALUES (:nombre)";
-    $stmt = $con->prepare($sql);
-    $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+    // Verificar si ya existe un tipo de arma con el mismo id_tp_arma
+    $sql_check_id = "SELECT COUNT(*) FROM tipo_arma WHERE id_tp_arma = :id_tp_arma";
+    $stmt_check_id = $con->prepare($sql_check_id);
+    $stmt_check_id->execute(array(':id_tp_arma' => $id_tp_arma));
+    $id_exists = $stmt_check_id->fetchColumn();
 
-    // Ejecutar la consulta
-    if ($stmt->execute()) {
-        echo "<script>alert('Tipo de arma creado');</script>";
-        echo "<script>window.location='../visualizar/tarmas.php';</script>";
+    if ($id_exists) {
+        echo "<script>alert('Ya existe un tipo de arma con ese ID. Por favor, elige otro número de ID.'); window.location='../visualizar/tarmas.php';</script>";
         exit();
-    } else {
-        echo "<script>alert('Error al crear el tipo de arma');</script>";
     }
+
+    // Insertar el nuevo tipo de arma si el id_tp_arma no existe aún
+    $sql = "INSERT INTO tipo_arma (id_tp_arma, NOMBRE) VALUES (:id_tp_arma, :nombre)";
+    $stmt = $con->prepare($sql);
+
+    $stmt->execute(array(':id_tp_arma' => $id_tp_arma, ':nombre' => $nombre));
+
+    echo "<script>alert('Tipo de arma creado.'); window.location='../visualizar/tarmas.php';</script>";
+    exit();
 }
 ?>
-
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <h2 class="text-center">Crear Tipo de Arma</h2>
             <form method="post">
+                <div class="form-group">
+                    <label for="id_tp_arma">ID Tipo de Arma:</label>
+                    <input type="number" class="form-control" name="id_tp_arma" required>
+                </div>
                 <div class="form-group">
                     <label for="nombre">Nombre:</label>
                     <input type="text" class="form-control" name="nombre" required>
@@ -44,6 +50,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 </div>
 
-<?php 
-include "../template/footer.php";
-?>
+<?php include "../template/footer.php"; ?>
