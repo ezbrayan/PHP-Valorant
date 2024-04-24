@@ -1,12 +1,12 @@
 <?php
 session_start();
-require_once ("Config/conexion.php");
+require_once("Config/conexion.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id = $_POST['id'];
     $nombre = $_POST['nombre'];
     $correo = $_POST['correo'];
-    $password = password_hash($_POST['contraseña'], PASSWORD_DEFAULT); 
+    $password = password_hash($_POST['contraseña'], PASSWORD_DEFAULT);
     $id_agente = $_POST['avatar'];
     $puntos_rango = 0;
     $puntos_salud = 100;
@@ -89,7 +89,7 @@ try {
     <link rel="manifest" href="Assets/favicon/manifest.json">
 
     <title>Valorant - Iniciar Sesión</title>
-    <link rel="stylesheet" href="Assets/css/registro.css">
+    <link rel="stylesheet" href="Assets/css/registro2.css">
 </head>
 
 <body>
@@ -111,7 +111,7 @@ try {
     <div class="login">
         <div class="header">
             <div class="center">
-                <img src="Assets/img/logo.png" alt="Logo Valorant">
+
                 <div class="clear"></div>
             </div>
             <!-- Inicio Form registro -->
@@ -121,25 +121,18 @@ try {
                     <div class="form-login">
                         <h2>Registrate</h2>
                         <input type="number" id="id" name="id" placeholder="ID del usuario" required><br><br>
-                        <input type="text" id="nombre" name="nombre" placeholder="Nombre de Usuario - Nickname"
-                            required><br><br>
-                        <input type="correo" id="correo" name="correo" placeholder="Correo Electronico"
-                            required><br><br>
-                        <input type="password" id="contraseña" name="contraseña" placeholder="Contraseña"
-                            required><br><br>
+                        <input type="text" id="nombre" name="nombre" placeholder="Nombre de Usuario - Nickname" required><br><br>
+                        <input type="correo" id="correo" name="correo" placeholder="Correo Electronico" required><br><br>
+                        <input type="password" id="contraseña" name="contraseña" placeholder="Contraseña" required><br><br>
                         <select id="avatar" name="avatar" required onchange="mostrarImagen()">
                             <option value="">Seleccione un agente</option>
-                            <?php foreach ($agentes as $agente): ?>
+                            <?php foreach ($agentes as $agente) : ?>
                                 <option value="<?php echo $agente['id_agente']; ?>"><?php echo $agente['nombre']; ?>
                                 </option>
                             <?php endforeach; ?>
                         </select><br>
 
-                        <a class="icon-face" href="https://www.facebook.com/?locale=es_LA"><i
-                                class="fab fa-facebook"></i></a>
-                        <a class="icon-google" href="https://www.google.com/intl/es-419/gmail/about/"><i
-                                class="fab fa-google"></i></a>
-                        <a class="icon-apple" href="https://www.apple.com/co/"><i class="fab fa-apple"></i></a><br>
+
 
                         <div class="button">
                             <button class="button">
@@ -163,22 +156,22 @@ try {
     <!-- Bnner -->
     <div class="banner" name="Banner">
         <div class="agente" id="agenteSeleccionado">
-            <img src="Assets/img/agentes.gif" alt="Riot_logo" style="height: 380px;">
+
         </div>
     </div>
 </body>
 <!-- agentes -->
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function() {
         var miAudio = document.getElementById("miAudio");
         var audioIcon = document.getElementById("audioIcon");
 
-        setTimeout(function () {
+        setTimeout(function() {
             miAudio.play();
             miAudio.volume = miAudio.volume * 0.5; // Establecer el volumen 
         }, 500); // Retraso de 0.5 segundos (500 milisegundos)
 
-        audioIcon.addEventListener("click", function () {
+        audioIcon.addEventListener("click", function() {
             if (miAudio.paused) {
                 miAudio.play();
                 audioIcon.classList.remove("fa-volume-off");
@@ -190,6 +183,7 @@ try {
             }
         });
     });
+
     function mostrarImagen() {
         var avatarSelect = document.getElementById("avatar");
         var agenteSeleccionado = document.getElementById("agenteSeleccionado");
@@ -199,7 +193,7 @@ try {
         agenteSeleccionado.innerHTML = '';
 
         // Buscar el agente seleccionado en la lista de agentes
-        <?php foreach ($agentes as $agente): ?>
+        <?php foreach ($agentes as $agente) : ?>
             if ('<?php echo $agente['id_agente']; ?>' === idAgente) { // Comprobar si el ID del agente coincide
                 // Crear imagen y establecer atributos
                 var img = document.createElement("img");
@@ -213,7 +207,6 @@ try {
             }
         <?php endforeach; ?>
     }
-
 </script>
 
 </html>

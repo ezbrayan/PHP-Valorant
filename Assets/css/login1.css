@@ -183,13 +183,13 @@ footer p:hover{
     left: 30%;
     width: 70%;
     height: 100%; 
-    background-image: url(../img/fondo.jpeg);
+    background-image: url(../../img/clove.jpg);
     background-size: cover;
     background-position: center;
 }
 
 #opciones {
-    position: fixed;
+    position: fixed;                                                                    
     top: 0;
     left: 0;
     padding: 20px;

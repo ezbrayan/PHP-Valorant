@@ -21,7 +21,7 @@ try {
         $stmt_update_estado->execute();
 
         // Obtener información del jugador atacante
-        $sql_info_atacante = "SELECT u.nombre, a.foto AS foto_agente, r.nombre AS nombre_rango, r.id_rango FROM usuarios u
+        $sql_info_atacante = "SELECT u.nombre, a.foto AS foto_agente, r.foto AS foto_rango, r.id_rango FROM usuarios u
                               INNER JOIN agentes a ON u.id_agente = a.id_agente
                               INNER JOIN rango r ON u.id_rango = r.id_rango
                               WHERE u.id_usuario = :id_atacante";
@@ -31,14 +31,16 @@ try {
         $info_atacante = $stmt_atacante->fetch(PDO::FETCH_ASSOC);
 
         // Obtener información del jugador atacado
-        $sql_info_atacado = "SELECT u.nombre, a.foto AS foto_agente, r.nombre AS nombre_rango, r.id_rango FROM usuarios u
-                             INNER JOIN agentes a ON u.id_agente = a.id_agente
-                             INNER JOIN rango r ON u.id_rango = r.id_rango
-                             WHERE u.id_usuario = :id_atacado";
+        $sql_info_atacado = "SELECT u.nombre, a.foto AS foto_agente, r.nombre AS nombre_rango, r.id_rango, r.foto AS foto_rango 
+                     FROM usuarios u
+                     INNER JOIN agentes a ON u.id_agente = a.id_agente
+                     INNER JOIN rango r ON u.id_rango = r.id_rango
+                     WHERE u.id_usuario = :id_atacado";
         $stmt_atacado = $db->prepare($sql_info_atacado);
         $stmt_atacado->bindParam(':id_atacado', $id_atacado, PDO::PARAM_INT);
         $stmt_atacado->execute();
         $info_atacado = $stmt_atacado->fetch(PDO::FETCH_ASSOC);
+
 
         // Obtener las armas del mismo rango que el jugador atacante
         $sql_armas = "SELECT id_arma, nombre, foto, balas, daño FROM armas WHERE id_rango <= :id_rango";
@@ -102,13 +104,13 @@ try {
         <div class='jugador'>
             <h2><?php echo $info_atacante['nombre']; ?></h2>
             <img src='data:image/jpeg;base64,<?php echo base64_encode($info_atacante['foto_agente']); ?>' alt='<?php echo $info_atacante['nombre']; ?>' class='imagen-jugador-activo'>
-            <p>Rango: <?php echo $info_atacante['nombre_rango']; ?></p>
+            <img src='data:image/jpeg;base64,<?php echo base64_encode($info_atacante['foto_rango']); ?>' alt='<?php echo $info_atacante['nombre']; ?>' class='imagen-jugador-activo'>
         </div>
         <!-- Información del jugador atacado -->
         <div class='jugador'>
             <h2><?php echo $info_atacado['nombre']; ?></h2>
             <img src='data:image/jpeg;base64,<?php echo base64_encode($info_atacado['foto_agente']); ?>' alt='<?php echo $info_atacado['nombre']; ?>' class='imagen-jugador'>
-            <p>Rango: <?php echo $info_atacado['nombre_rango']; ?></p>
+            <img src='data:image/jpeg;base64,<?php echo base64_encode($info_atacado['foto_rango']); ?>' alt='<?php echo $info_atacado['nombre']; ?>' class='imagen-jugador'>
         </div>
     </div>
 

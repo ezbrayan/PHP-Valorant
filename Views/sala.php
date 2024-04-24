@@ -143,7 +143,7 @@ try {
                 echo "<div id='mensajeSalud'><script>document.getElementById('mensajeSalud').innerText = 'Cuentas con 0% de salud. Por favor, abandona el mapa y restaura tus puntos de salud.';</script></div>";
             } else {
                 // Botón para combatir
-                echo "<div id='btnCombatirDiv'><button id='btnCombatir'>Combatir</button></div>";
+                echo "<div id='btnCombatirDiv'><button id='btnCombatir'>Combatir</button>";
 
                 // Formulario para seleccionar jugador a atacar (oculto inicialmente)
                 echo "<form id='formCombatir' action='combatir.php' method='post' style='display:none;'>";
@@ -156,8 +156,9 @@ try {
                 echo "</select>";
                 echo "<input type='hidden' name='id_atacante' value='{$_SESSION['jugador']['id_usuario']}'>";
                 echo "<input type='hidden' name='id_mapa' value='$id_mapa'>"; // Agregado el campo oculto para el id_mapa
-                echo "<button type='submit'>Atacar</button>";
+                echo "<button type='submit' id='atacar'>Atacar</button>";
                 echo "</form>";
+                echo "</div>";
             }
         } else {
             echo "No hay jugadores en la sala.";
@@ -182,6 +183,89 @@ try {
     <script src="https://kit.fontawesome.com/7fd910d257.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
     <style>
+        #btnCombatirDiv {
+            display: flex;
+            width: 100%;
+            height: 10%;
+            margin-top: -45%;
+            justify-content: center;
+            align-items: center;
+            font-family: "Anton", sans-serif;
+        }
+
+        #btnCombatir {
+            width: 12%;
+            height: 100%;
+            border: 1px solid white;
+            color: white;
+            background-color: rgb(238, 90, 90);
+            font-size: 25px;
+            border-radius: 15px;
+            margin-right: 2%;
+            font-family: "Anton", sans-serif;
+            transition: all 0.2s;
+
+        }
+        #btnCombatir:hover{
+            transition: all 0.2s;
+          
+        }
+        
+
+        #atacar {
+
+            height: 100%;
+            border: 1px solid white;
+            color: white;
+            background-color: rgb(238, 90, 90);
+            font-size: 25px;
+            border-radius: 15px;
+            font-family: "Anton", sans-serif;
+
+        }
+        #atacar:hover{
+            transition: all 0.2s;
+            
+        }
+
+        #formCombatir {
+            margin-top: 1%;
+        }
+
+      
+        #formCombatir select {
+            width: 200px;
+            height: 40px;
+            border: 1px solid rgb(238, 90, 90);
+            border-radius: 5px;
+            background-color: white;
+            color: rgb(238, 90, 90);
+            font-size: 16px;
+            padding: 5px;
+            outline: none;
+            margin-right: 25px;
+            font-family: "Anton", sans-serif;
+            text-align: center;
+        }
+        
+        #formCombatir select:hover{
+            transition: all 0.2s;
+            
+        }
+        /* Estilo para las opciones del select */
+        #formCombatir select option {
+            background-color: white;
+            color: rgb(238, 90, 90);
+            font-size: 16px;
+            font-family: "Anton", sans-serif;
+            text-align: center;
+        }
+        #formCombatir select option:hover {
+            color: white;
+            transition: all 0.2s;
+        }
+
+
         body {
             margin: 0;
             padding: 0;
@@ -216,7 +300,7 @@ try {
             align-items: center;
             color: white;
             font-family: "Anton", sans-serif;
-            margin-top: -2%;
+            margin-top: 2%;
         }
 
         .jugador {
