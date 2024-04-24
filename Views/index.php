@@ -103,7 +103,7 @@ if ($usuario['puntos_salud'] <= 0) {
         Tu navegador no soporta videos HTML5.
     </video>
     <div class="contenido">
-    <?php include 'nav2.php'; ?>
+        <?php include 'nav2.php'; ?>
         <?php include 'nav.php'; ?>
         <div class="botones">
             <ul>
@@ -123,7 +123,7 @@ if ($usuario['puntos_salud'] <= 0) {
                     </form>
                 </li>
                 <li>
-                    <form action="carrera_esport.php" method="post">
+                    <form action="agentes/agentes.php" method="post">
                         <input type="hidden" name="id_usuario" value="<?= $usuario['id_usuario'] ?>">
                         <button type="submit"> <i class="fa-solid fa-diamond"></i> Agentes</button>
                     </form>
@@ -135,7 +135,7 @@ if ($usuario['puntos_salud'] <= 0) {
                     </form>
                 </li>
                 <li>
-                    <form action="ultima_pagina.php" method="post">
+                    <form action="armas/armas.php" method="post">
                         <input type="hidden" name="id_usuario" value="<?= $usuario['id_usuario'] ?>">
                         <button type="submit"><i class="fa-solid fa-diamond"></i> Armas</button>
                     </form>
