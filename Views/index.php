@@ -129,7 +129,7 @@ if ($usuario['puntos_salud'] <= 0) {
                     </form>
                 </li>
                 <li>
-                    <form action="otra_pagina.php" method="post">
+                    <form action="mapas/mapas.php" method="post">
                         <input type="hidden" name="id_usuario" value="<?= $usuario['id_usuario'] ?>">
                         <button type="submit"><i class="fa-solid fa-diamond"></i> Mapas</button>
                     </form>

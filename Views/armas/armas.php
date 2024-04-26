@@ -31,109 +31,100 @@ $result = $db->query($query);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background-image: url('https://img.freepik.com/fotos-premium/patron-nubes-fisuras_230313-146.jpg'); /* Utilizando una textura para simular las nubes */
-            animation: moveBackground 60s linear infinite;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Press Start 2P', cursive; /* Fuente estilo pixelada */
+            color: #fff; /* Texto blanco */
         }
 
-        @keyframes moveBackground {
-            from {
-                background-position: 0% 0%;
-            }
-            to {
-                background-position: 100% 0%;
-            }
+        #video-background {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -100;
         }
 
-        .container {
-            max-width: 800px;
-            margin: auto;
+        #contenido-container {
+            position: relative;
+            z-index: 1;
             padding: 20px;
         }
 
         .card {
-            margin-bottom: 20px;
-            background-color: #fff;
+            background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
+            border: 2px solid mediumslateblue; /* Borde naranja */
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-            height: 100%; /* Ajustar todas las tarjetas al mismo tamaño */
+            margin-bottom: 20px;
+            transition: all 0.3s ease; /* Transición suave */
         }
 
         .card:hover {
-            transform: translateY(-5px);
+            transform: scale(1.05); /* Agrandar un poco la carta al pasar el mouse */
         }
 
-        .card-img-top {
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-            height: auto; /* Ajustar altura automáticamente */
-            max-width: 100%; /* Máximo ancho */
-            object-fit: cover; /* Escalar y recortar la imagen */
+        .card-title {
+            color: mediumslateblue; /* Título naranja */
         }
 
         .card-body {
             padding: 20px;
-            height: 100%; /* Ajustar todas las tarjetas al mismo tamaño */
+            opacity: 0; /* Ocultar por defecto */
+            transition: opacity 0.3s ease; /* Transición suave */
         }
 
-        .card-title {
-            margin-bottom: 10px;
-            font-size: 1.5rem;
-            color: #333;
+        .card:hover .card-body {
+            opacity: 1; /* Mostrar al pasar el mouse */
         }
 
-        .card-text {
-            margin-bottom: 10px;
-            color: #555;
-        }
-
-        .btn-primary {
-            background-color: #4CAF50;
+        .btn-volver {
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            background-color: red; /* Botón naranja */
             border: none;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            transition-duration: 0.4s;
-            cursor: pointer;
-            border-radius: 8px;
         }
 
-        .btn-primary:hover {
-            background-color: #45a049;
-            color: white;
+        .btn-volver:hover {
+            background-color: #cc3a00; /* Naranja más oscuro al pasar el mouse */
         }
     </style>
 </head>
 
 <body>
+    <video autoplay loop muted id="video-background">
+        <source src="../../video/videoclove.mp4" type="video/mp4">
+        Tu navegador no soporta videos HTML5.
+    </video>
 
-    <div class="container">
-        <h1 class="text-center mb-4">Armas Disponibles</h1>
-        <div class="row">
-            <?php while ($row = $result->fetch(PDO::FETCH_ASSOC)): ?>
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="data:image/jpeg;base64,<?php echo base64_encode($row['foto']); ?>" class="card-img-top" alt="<?php echo $row['nombre']; ?>">
-                    <div class="card-body">
-                        <h5 class="card-title"><?php echo $row['nombre']; ?></h5>
-                        <p class="btn btn-success">Balas: <?php echo $row['balas']; ?></p>
-                        <p class="btn btn-danger">Daño: <?php echo $row['daño']; ?></p>
+    <div id="contenido-container">
+        <div class="container">
+            <h1 class="text-center mb-4">Armas Disponibles</h1>
+            <div class="row">
+                <?php while ($row = $result->fetch(PDO::FETCH_ASSOC)): ?>
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="data:image/jpeg;base64,<?php echo base64_encode($row['foto']); ?>" class="card-img-top" alt="<?php echo $row['nombre']; ?>">
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $row['nombre']; ?></h5>
+                            <p class="card-text">Balas: <?php echo $row['balas']; ?></p>
+                            <p class="card-text">Daño: <?php echo $row['daño']; ?></p>
+                        </div>
                     </div>
                 </div>
+                <?php endwhile; ?>
             </div>
-            <?php endwhile; ?>
+            <br>
+            <a href="javascript:history.back()" class="btn btn-danger btn-volver">Volver</a>
         </div>
-        <br>
-        <a href="javascript:history.back()" class="btn btn-danger mb-3">Volver</a>
     </div>
 
     <!-- Agregar el script de Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 
 </html>

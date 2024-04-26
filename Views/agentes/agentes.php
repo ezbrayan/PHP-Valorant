@@ -30,19 +30,42 @@ $result = $db->query($query);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background-image: url('https://img.freepik.com/fotos-premium/patron-nubes-fisuras_230313-146.jpg'); /* Utilizando una textura para simular las nubes */
-            animation: moveBackground 60s linear infinite;
-        }
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: 'Press Start 2P', cursive; /* Fuente estilo pixelada */
+    /* Selecciona una fuente legible */
+}
 
-        @keyframes moveBackground {
-            from {
-                background-position: 0% 0%;
-            }
-            to {
-                background-position: 100% 0%;
-            }
-        }
+#video-background {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+}
 
+#contenido {
+    position: relative;
+    z-index: 1;
+    color: white;
+    /* Color del texto sobre el video */
+    padding: 20px;
+    /* Añade un espacio alrededor del contenido */
+}
+#contenido-container {
+            max-height: 100vh;
+            /* Altura máxima del contenedor */
+            overflow-y: scroll;
+            /* Agregamos la barra de desplazamiento vertical */
+            margin: 0 auto;
+            /* Centramos el contenedor horizontalmente */
+            padding: 20px;
+            /* Añadimos un espacio alrededor del contenido */
+        }
         .container {
             position: relative; /* Asegura que el contenido se mantenga dentro del contenedor */
         }
@@ -80,13 +103,28 @@ $result = $db->query($query);
         }
 
         h1 {
-            color: black;
+            color: #fff;
+        }
+        .btn-volver {
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            background-color: red; /* Botón naranja */
+            border: none;
+        }
+
+        .btn-volver:hover {
+            background-color: #cc3a00; /* Naranja más oscuro al pasar el mouse */
         }
     </style>
 </head>
 
 <body>
-
+<div id="contenido-container"> <!-- Agregamos un nuevo contenedor -->
+    <video autoplay loop muted id="video-background">
+        <source src="../../video/videoclove.mp4" type="video/mp4">
+        Tu navegador no soporta videos HTML5.
+    </video>
     <div class="container">
         <h1 class="text-center ">Agentes Disponibles</h1>
         <br>
@@ -105,7 +143,7 @@ $result = $db->query($query);
             </div>
             <?php endwhile; ?>
         </div>
-        <a href="javascript:history.back()" class="btn btn-danger mb-3">Volver</a>
+        <a href="javascript:history.back()" class="btn btn-danger btn-volver"">Volver</a>
     </div>
 
     <!-- Agregar el script de Bootstrap -->
