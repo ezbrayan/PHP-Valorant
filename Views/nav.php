@@ -215,7 +215,7 @@ try {
             <div class="agentes">
                 <ul>
                     <li><a href="#"></a><b> <?= $usuario['nombre_usuario'] ?></b> #LAN</a></li>
-                    <li style="font-size:12px;">De Dategoria</li>
+                    <li style="font-size:12px;">De Categoria</li>
                 </ul>
                 <img src="data:image/jpeg;base64,<?= base64_encode($usuario['foto_agente']) ?>" alt="Foto del agente" class="user" id="ag">
 

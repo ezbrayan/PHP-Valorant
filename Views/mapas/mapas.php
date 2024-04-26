@@ -80,7 +80,7 @@ if ($result && $result->rowCount() > 0) {
     margin: 15px; /* Incremento del 50% respecto al margen original */
     padding: 10px;
     background-color: #121212;
-    border: 2px solid #ff4655;
+    border: 2px solid #ffffff;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     transition: transform 0.3s;
@@ -95,6 +95,7 @@ if ($result && $result->rowCount() > 0) {
         .map-card img {
             width: 100%;
             border-radius: 5px;
+            border: 1px solid white;
         }
 
         .map-card h3 {

@@ -96,42 +96,157 @@ if (isset($_POST['id_usuario'])) {
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
     <title>Mapas Valorant</title>
+    <style>
+        body {
+            text-align: center;
+            color: white;
+            font-family: "Anton", sans-serif;
+        }
+
+        #video-background {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -100;
+        }
+
+        #video-background {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -100;
+        }
+
+        #contenido {
+            position: relative;
+            z-index: 1;
+            color: white;
+            /* Color del texto sobre el video */
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            /* Permitir que los elementos se envuelvan en una nueva fila */
+            justify-content: space-evenly;
+            align-items: center;
+            width: 100%;
+        }
+
+        .mapas {
+            flex: 0 0 30%;
+            /* Ancho de cada mapa, ajustado para que tres mapas se muestren por fila */
+            margin-bottom: 20px;
+            background-color: rgba(255, 255, 255, 0.3);
+            /* Color de fondo transparente para cada mapa */
+            border-radius: 10px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            /* Cambia la dirección del flexbox a columna */
+            align-items: center;
+            /* Centra los elementos en el eje vertical */
+        }
+
+        .mapas h2 {
+            margin-bottom: 5px;
+        }
+
+        .mapas img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+           border-radius:10px;
+           border:2px solid white;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .mapas p {
+            margin-bottom: 10px;
+        }
+
+        /* Estilos para los botones */
+        .mapas form {
+            display: flex;
+            /* Utiliza flexbox para alinear los botones */
+        }
+
+        .mapas button {
+            height: 100%;
+            border: 1px solid white;
+            color: white;
+            background-color: rgb(238, 90, 90);
+            font-size: 25px;
+            border-radius: 5px;
+            font-family: "Anton", sans-serif;
+            margin-bottom: 5px;
+        }
+
+        .mapas button:last-child {
+            margin-right: 0;
+            /* Elimina el margen derecho del último botón */
+        }
+
+        h2 {
+            color: white;
+            font-family: "Anton", sans-serif;
+        }
+    </style>
 </head>
+
 <body>
+    <video autoplay loop muted id="video-background">
+        <source src="../video/videoclove.mp4" type="video/mp4">
+        Tu navegador no soporta videos HTML5.
+    </video>
     <h1>Mapas Disponibles</h1>
-    <?php foreach ($mapas as $mapa): ?>
-        <div>
-            <h2><?= $mapa['nombre'] ?></h2>
-            <img src="data:image/jpeg;base64,<?= base64_encode($mapa['foto']) ?>" alt="Foto del mapa"><br>
-            
-            <!-- Mostrar el número de jugadores unidos -->
-            <p>Número de jugadores unidos: <?= count(array_filter($mapa)) - 4 ?>/5</p>
-            
-            <!-- Mostrar el botón "Unirse" o el mensaje "Ya estás unido a este mapa" según corresponda -->
-            <?php if (in_array($mapa['id_mapa'], $mapas_unidos)): ?>
-                <form action="sala.php" method="post">
-                    <input type="hidden" name="id_usuario" value="<?= $id_usuario ?>">
-                    <input type="hidden" name="id_mapa" value="<?= $mapa['id_mapa'] ?>">
-                    <button type="submit">Ingresar a la sala</button>
-                </form>
-                <form action="abandonar_mapa.php" method="post">
-                    <input type="hidden" name="id_usuario" value="<?= $id_usuario ?>">
-                    <input type="hidden" name="id_mapa" value="<?= $mapa['id_mapa'] ?>">
-                    <button type="submit">Abandonar mapa</button>
-                </form>
-            <?php else: ?>
-                <form action="" method="post">
-                    <input type="hidden" name="id_usuario" value="<?= $id_usuario ?>">
-                    <input type="hidden" name="id_mapa" value="<?= $mapa['id_mapa'] ?>">
-                    <button type="submit">Unirse al mapa</button>
-                </form>
-            <?php endif; ?>
-            <hr>
+    <?php foreach ($mapas as $mapa) : ?>
+        <div class="contenedor" id="contenido">
+            <div class="mapas">
+
+                <h2><?= $mapa['nombre'] ?></h2>
+                <img src="data:image/jpeg;base64,<?= base64_encode($mapa['foto']) ?>" alt="Foto del mapa"><br>
+
+                <!-- Mostrar el número de jugadores unidos -->
+                <p>Número de jugadores unidos: <?= count(array_filter($mapa)) - 4 ?>/5</p>
+
+                <!-- Mostrar el botón "Unirse" o el mensaje "Ya estás unido a este mapa" según corresponda -->
+                <?php if (in_array($mapa['id_mapa'], $mapas_unidos)) : ?>
+                    <form action="sala.php" method="post">
+                        <input type="hidden" name="id_usuario" value="<?= $id_usuario ?>">
+                        <input type="hidden" name="id_mapa" value="<?= $mapa['id_mapa'] ?>">
+                        <button type="submit">Ingresar a la sala</button>
+                    </form>
+                    <form action="abandonar_mapa.php" method="post">
+                        <input type="hidden" name="id_usuario" value="<?= $id_usuario ?>">
+                        <input type="hidden" name="id_mapa" value="<?= $mapa['id_mapa'] ?>">
+                        <button type="submit">Abandonar mapa</button>
+                    </form>
+                <?php else : ?>
+                    <form action="" method="post">
+                        <input type="hidden" name="id_usuario" value="<?= $id_usuario ?>">
+                        <input type="hidden" name="id_mapa" value="<?= $mapa['id_mapa'] ?>">
+                        <button type="submit">Unirse al mapa</button>
+                    </form>
+                <?php endif; ?>
+                <hr>
+            </div>
         </div>
     <?php endforeach; ?>
 </body>
+
 </html>

@@ -99,21 +99,15 @@ try {
 </head>
 
 <body>
+    <div id="tiempo"></div>
     <div class='contenedor'>
-        <!-- Información del jugador atacante -->
+    
         <div class='jugador'>
             <h2><?php echo $info_atacante['nombre']; ?></h2>
             <img src='data:image/jpeg;base64,<?php echo base64_encode($info_atacante['foto_agente']); ?>' alt='<?php echo $info_atacante['nombre']; ?>' class='imagen-jugador-activo'>
             <img src='data:image/jpeg;base64,<?php echo base64_encode($info_atacante['foto_rango']); ?>' alt='<?php echo $info_atacante['nombre']; ?>' class='imagen-jugador-activo'>
         </div>
-        <!-- Información del jugador atacado -->
-        <div class='jugador'>
-            <h2><?php echo $info_atacado['nombre']; ?></h2>
-            <img src='data:image/jpeg;base64,<?php echo base64_encode($info_atacado['foto_agente']); ?>' alt='<?php echo $info_atacado['nombre']; ?>' class='imagen-jugador'>
-            <img src='data:image/jpeg;base64,<?php echo base64_encode($info_atacado['foto_rango']); ?>' alt='<?php echo $info_atacado['nombre']; ?>' class='imagen-jugador'>
-        </div>
-    </div>
-
+        <div class="armaform">
     <!-- Selector de arma -->
     <form id='formDisparar' action='procesar_combatir.php' method='post'>
         <label for="id_arma">Selecciona un arma:</label>
@@ -131,11 +125,21 @@ try {
         <input type="hidden" name="id_estado" id="id_estado" value="3">
         <input type="submit" id="dispararBtn" value="Disparar">
         <div id="contador"></div>
-        <div id="tiempo"></div>
+        
     </form>
-
+    </div>
     <!-- Div para mostrar la imagen del arma seleccionada -->
-    <div id="imgarma"></div>
+    <div id="imgarma">
+        
+    </div>
+        <!-- Información del jugador atacado -->
+        <div class='jugador'>
+            <h2><?php echo $info_atacado['nombre']; ?></h2>
+            <img src='data:image/jpeg;base64,<?php echo base64_encode($info_atacado['foto_agente']); ?>' alt='<?php echo $info_atacado['nombre']; ?>' class='imagen-jugador'>
+            <img src='data:image/jpeg;base64,<?php echo base64_encode($info_atacado['foto_rango']); ?>' alt='<?php echo $info_atacado['nombre']; ?>' class='imagen-jugador'>
+        </div>
+    </div>
+
 
     <script>
         // Función para redireccionar a index.php
@@ -144,7 +148,7 @@ try {
         }
 
         // Contador regresivo de 5 minutos
-        var tiempoRestante = 1 * 60; // 5 minutos en segundos
+        var tiempoRestante = 100 * 60; // 5 minutos en segundos
         var intervaloContador = setInterval(function() {
             tiempoRestante--;
             if (tiempoRestante <= 0) {
@@ -172,7 +176,7 @@ try {
             document.getElementById("dispararBtn").style.display = "none";
             document.getElementById("contador").style.display = "block";
             // Configurar el tiempo de espera en milisegundos (1 minuto = 60000 ms)
-            var tiempoEspera = 10000;
+            var tiempoEspera = 1000;
             // Mostrar el contador regresivo
             var contador = tiempoEspera / 1000;
             var intervalo = setInterval(function() {
