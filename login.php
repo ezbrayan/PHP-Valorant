@@ -113,7 +113,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                 <div class="center">
                     <div class="form-login">
-                        <h2>Inicar Sesion</h2>
+                        <h2>Inicar SDios</h2>
                         <input type="text" id="nombre" name="nombre" placeholder="nombre" required>
                         <input type="password" id="contraseña" name="contraseña" placeholder="Contraseña" required>
                         
