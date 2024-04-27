@@ -136,7 +136,7 @@ if (isset($_POST['id_usuario'])) {
             z-index: 1;
             color: white;
             /* Color del texto sobre el video */
-            padding: 20px;
+
             display: flex;
             flex-wrap: wrap;
             /* Permitir que los elementos se envuelvan en una nueva fila */
@@ -168,8 +168,8 @@ if (isset($_POST['id_usuario'])) {
             width: 100%;
             height: auto;
             margin-bottom: 10px;
-           border-radius:10px;
-           border:2px solid white;
+            border-radius: 10px;
+            border: 2px solid white;
             display: block;
             margin-left: auto;
             margin-right: auto;
@@ -194,6 +194,13 @@ if (isset($_POST['id_usuario'])) {
             border-radius: 5px;
             font-family: "Anton", sans-serif;
             margin-bottom: 5px;
+            transition: all 0.2s;
+        }
+
+        .mapas button:hover {
+            background-color: white;
+            color: rgb(238, 90, 90);
+            transition: all 0.2s;
         }
 
         .mapas button:last-child {
@@ -205,6 +212,22 @@ if (isset($_POST['id_usuario'])) {
             color: white;
             font-family: "Anton", sans-serif;
         }
+
+        .btn-volver {
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            background-color: red;
+            /* Botón naranja */
+            border: none;
+            background-color: white;
+            color: rgb(238, 90, 90);
+        }
+
+        .btn-volver:hover {
+            background-color: rgb(238, 90, 90);
+            /* Naranja más oscuro al pasar el mouse */
+        }
     </style>
 </head>
 
@@ -214,6 +237,7 @@ if (isset($_POST['id_usuario'])) {
         Tu navegador no soporta videos HTML5.
     </video>
     <h1>Mapas Disponibles</h1>
+    <?php include 'volver.php'; ?>
     <?php foreach ($mapas as $mapa) : ?>
         <div class="contenedor" id="contenido">
             <div class="mapas">
@@ -246,6 +270,7 @@ if (isset($_POST['id_usuario'])) {
                 <hr>
             </div>
         </div>
+       
     <?php endforeach; ?>
 </body>
 

@@ -26,15 +26,14 @@ $result = $db->query($query);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agentes</title>
-    <!-- Agregar enlaces a los estilos de Bootstrap -->
+      <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    font-family: 'Press Start 2P', cursive; /* Fuente estilo pixelada */
-    /* Selecciona una fuente legible */
+    font-family: "Anton", sans-serif;
 }
 
 #video-background {
@@ -111,10 +110,12 @@ $result = $db->query($query);
             right: 25px;
             background-color: red; /* Botón naranja */
             border: none;
+            background-color: white;
+            color:rgb(238, 90, 90); 
         }
 
         .btn-volver:hover {
-            background-color: #cc3a00; /* Naranja más oscuro al pasar el mouse */
+            background-color: rgb(238, 90, 90); /* Naranja más oscuro al pasar el mouse */
         }
     </style>
 </head>

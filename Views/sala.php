@@ -142,8 +142,9 @@ try {
             if ($salud_atacante <= 0) {
                 echo "<div id='mensajeSalud'><script>document.getElementById('mensajeSalud').innerText = 'Cuentas con 0% de salud. Por favor, abandona el mapa y restaura tus puntos de salud.';</script></div>";
             } else {
-                // Botón para combatir
+                echo "<a href='javascript:history.back()' class='btn btn-danger btn-volver'>Volver</a>";
                 echo "<div id='btnCombatirDiv'><button id='btnCombatir'>Combatir</button>";
+
 
                 // Formulario para seleccionar jugador a atacar (oculto inicialmente)
                 echo "<form id='formCombatir' action='combatir.php' method='post' style='display:none;'>";
@@ -183,11 +184,29 @@ try {
     <script src="https://kit.fontawesome.com/7fd910d257.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
     <style>
+        .btn-volver {
+            position: absolute;
+            background-color: rgb(238, 90, 90);
+            color: white;
+            border: 2px solid rgb(238, 90, 90);
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .btn-volver:hover {
+            background-color: white;
+            color: rgb(238, 90, 90);
+        }
+
         #btnCombatirDiv {
             display: flex;
             width: 100%;
             height: 10%;
-            margin-top: -45%;
+            margin-top: -2%;
             justify-content: center;
             align-items: center;
             font-family: "Anton", sans-serif;
@@ -206,11 +225,12 @@ try {
             transition: all 0.2s;
 
         }
-        #btnCombatir:hover{
+
+        #btnCombatir:hover {
             transition: all 0.2s;
-          
+
         }
-        
+
 
         #atacar {
 
@@ -223,16 +243,17 @@ try {
             font-family: "Anton", sans-serif;
 
         }
-        #atacar:hover{
+
+        #atacar:hover {
             transition: all 0.2s;
-            
+
         }
 
         #formCombatir {
             margin-top: 1%;
         }
 
-      
+
         #formCombatir select {
             width: 200px;
             height: 40px;
@@ -247,11 +268,12 @@ try {
             font-family: "Anton", sans-serif;
             text-align: center;
         }
-        
-        #formCombatir select:hover{
+
+        #formCombatir select:hover {
             transition: all 0.2s;
-            
+
         }
+
         /* Estilo para las opciones del select */
         #formCombatir select option {
             background-color: white;
@@ -260,6 +282,7 @@ try {
             font-family: "Anton", sans-serif;
             text-align: center;
         }
+
         #formCombatir select option:hover {
             color: white;
             transition: all 0.2s;
@@ -300,7 +323,7 @@ try {
             align-items: center;
             color: white;
             font-family: "Anton", sans-serif;
-            margin-top: 2%;
+            margin-top: -2%;
         }
 
         .jugador {

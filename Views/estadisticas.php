@@ -108,7 +108,6 @@ try {
 
     // Calcular el total de páginas para la tabla de ataques donde el usuario es el atacado
     $total_paginas_atacado = ceil($total_resultados_atacado / $resultados_por_pagina);
-
 } catch (PDOException $e) {
     echo 'Error al obtener las estadísticas: ' . $e->getMessage();
     exit;
@@ -122,14 +121,15 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estadísticas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             margin: 0;
             padding: 0;
             overflow: hidden;
-            font-family: 'Press Start 2P', cursive;
-            /* Selecciona una fuente legible */
+            font-family: "Anton", sans-serif;
+
         }
 
         #video-background {
@@ -173,19 +173,18 @@ try {
         table {
             width: 80%;
             margin: 0 auto;
-            /* Centramos la tabla */
             border-collapse: collapse;
-            border: 2px solid #bf94e4;
-            /* Morado estilo Valorant */
+            border: 2px solid rgb(238, 90, 90);
             text-align: center;
-            /* Centramos el contenido de la tabla */
             margin-bottom: 30px;
-            /* Agregamos un margen inferior */
+            color: white;
+            transition: all 0.2s;
+
         }
 
         th,
         td {
-            border: 1px solid #bf94e4;
+            border: 1px solid rgb(238, 90, 90);
             /* Morado estilo Valorant */
             padding: 10px;
             text-align: center;
@@ -193,8 +192,9 @@ try {
         }
 
         th {
-            background-color: #bf94e4;
-            /* Morado estilo Valorant */
+            background-color: white;
+            color: rgb(238, 90, 90);
+            transition: all 0.2s;
         }
 
         tr:nth-child(even) {
@@ -202,10 +202,7 @@ try {
             /* Morado oscuro estilo Valorant */
         }
 
-        tr:hover {
-            background-color: #574b6d;
-            /* Morado más claro estilo Valorant */
-        }
+        
 
         .img-small {
             width: 50%;
@@ -216,7 +213,7 @@ try {
         }
 
         .img-large {
-            width: 70%;
+            width: 80%;
             height: auto;
             border-radius: 10px;
             margin-right: 10px;
@@ -231,35 +228,27 @@ try {
             display: inline-block;
             padding: 10px 20px;
             margin: 5px;
-            background-color: #663399;
-            /* Púrpura oscuro */
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 16px;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
+            background-color: white;
+            color: rgb(238, 90, 90);
+            transition: all 0.2s;
+            border: 1px solid rgb(238, 90, 90);
         }
 
-        .btn-pagination:hover,
-        .btn-pagination.active {
-            background-color: #993399;
-            /* Púrpura claro */
+        .btn-pagination:hover {
+            background-color: rgb(238, 90, 90);
+            color: white;
+            transition: all 0.2s;
+
         }
+
 
         .btn-volver {
             position: absolute;
             top: 10px;
             right: 25px;
-            background-color: #ff0000;
-            /* Rojo */
-            border: none;
-        }
-
-        .btn-volver:hover {
-            background-color: #cc0000;
-            /* Rojo más oscuro */
+            background-color: white;
+            color: rgb(238, 90, 90);
+            transition: all 0.2s;
         }
     </style>
 </head>
@@ -286,20 +275,14 @@ try {
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($estadisticas_atacante as $estadistica): ?>
+                    <?php foreach ($estadisticas_atacante as $estadistica) : ?>
                         <tr>
                             <td><?= $estadistica['daño_realizado'] . '%' ?></td>
-                            <td><img src="data:image/jpeg;base64,<?= base64_encode($estadistica['foto_agente_atacante']) ?>"
-                                    alt="<?= $estadistica['jugador_atacante'] ?>"
-                                    class="img-small"><?= $estadistica['jugador_atacante'] ?></td>
-                            <td><img src="data:image/jpeg;base64,<?= base64_encode($estadistica['foto_agente_atacado']) ?>"
-                                    alt="<?= $estadistica['jugador_atacado'] ?>"
-                                    class="img-small"><?= $estadistica['jugador_atacado'] ?></td>
+                            <td><img src="data:image/jpeg;base64,<?= base64_encode($estadistica['foto_agente_atacante']) ?>" alt="<?= $estadistica['jugador_atacante'] ?>" class="img-small"><?= $estadistica['jugador_atacante'] ?></td>
+                            <td><img src="data:image/jpeg;base64,<?= base64_encode($estadistica['foto_agente_atacado']) ?>" alt="<?= $estadistica['jugador_atacado'] ?>" class="img-small"><?= $estadistica['jugador_atacado'] ?></td>
                             <td><?= $estadistica['fecha'] ?></td>
-                            <td><img src="data:image/jpeg;base64,<?= base64_encode($estadistica['foto_arma']) ?>"
-                                    class="img-large"></td>
-                            <td><img src="data:image/jpeg;base64,<?= base64_encode($estadistica['foto_mapa']) ?>"
-                                    class="img-large"></td>
+                            <td><img src="data:image/jpeg;base64,<?= base64_encode($estadistica['foto_arma']) ?>" class="img-large"></td>
+                            <td><img src="data:image/jpeg;base64,<?= base64_encode($estadistica['foto_mapa']) ?>" class="img-large"></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -308,11 +291,10 @@ try {
 
             <!-- Mostrar botones de paginación para la tabla de ataques donde el usuario es el atacante -->
             <div class="pagination">
-                <?php if ($pagina_actual_atacante > 1): ?>
+                <?php if ($pagina_actual_atacante > 1) : ?>
                     <a href="?pagina_atacante=<?= $pagina_actual_atacante - 1 ?>" class="btn btn-pagination">Anterior</a>
                 <?php endif; ?>
-                <a href="?pagina_atacante=<?= min($pagina_actual_atacante + 1, $total_paginas_atacante) ?>"
-                    class="btn btn-pagination">Siguiente</a>
+                <a href="?pagina_atacante=<?= min($pagina_actual_atacante + 1, $total_paginas_atacante) ?>" class="btn btn-pagination">Siguiente</a>
             </div>
             <!-- Fin de la paginación para la tabla de ataques donde el usuario es el atacante -->
             <h1>Estadísticas en contra de mí</h1>
@@ -329,20 +311,14 @@ try {
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($estadisticas_atacado as $estadistica): ?>
+                    <?php foreach ($estadisticas_atacado as $estadistica) : ?>
                         <tr>
                             <td><?= $estadistica['daño_realizado'] . '%' ?></td>
-                            <td><img src="data:image/jpeg;base64,<?= base64_encode($estadistica['foto_agente_atacante']) ?>"
-                                    alt="<?= $estadistica['jugador_atacante'] ?>"
-                                    class="img-small"><?= $estadistica['jugador_atacante'] ?></td>
-                            <td><img src="data:image/jpeg;base64,<?= base64_encode($estadistica['foto_agente_atacado']) ?>"
-                                    alt="<?= $estadistica['jugador_atacado'] ?>"
-                                    class="img-small"><?= $estadistica['jugador_atacado'] ?></td>
+                            <td><img src="data:image/jpeg;base64,<?= base64_encode($estadistica['foto_agente_atacante']) ?>" alt="<?= $estadistica['jugador_atacante'] ?>" class="img-small"><?= $estadistica['jugador_atacante'] ?></td>
+                            <td><img src="data:image/jpeg;base64,<?= base64_encode($estadistica['foto_agente_atacado']) ?>" alt="<?= $estadistica['jugador_atacado'] ?>" class="img-small"><?= $estadistica['jugador_atacado'] ?></td>
                             <td><?= $estadistica['fecha'] ?></td>
-                            <td><img src="data:image/jpeg;base64,<?= base64_encode($estadistica['foto_arma']) ?>"
-                                    class="img-large"></td>
-                            <td><img src="data:image/jpeg;base64,<?= base64_encode($estadistica['foto_mapa']) ?>"
-                                    class="img-large"></td>
+                            <td><img src="data:image/jpeg;base64,<?= base64_encode($estadistica['foto_arma']) ?>" class="img-large"></td>
+                            <td><img src="data:image/jpeg;base64,<?= base64_encode($estadistica['foto_mapa']) ?>" class="img-large"></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -351,11 +327,10 @@ try {
 
             <!-- Mostrar botones de paginación para la tabla de ataques donde el usuario es el atacado -->
             <div class="pagination">
-                <?php if ($pagina_actual_atacado > 1): ?>
+                <?php if ($pagina_actual_atacado > 1) : ?>
                     <a href="?pagina_atacado=<?= $pagina_actual_atacado - 1 ?>" class="btn btn-pagination">Anterior</a>
                 <?php endif; ?>
-                <a href="?pagina_atacado=<?= min($pagina_actual_atacado + 1, $total_paginas_atacado) ?>"
-                    class="btn btn-pagination">Siguiente</a>
+                <a href="?pagina_atacado=<?= min($pagina_actual_atacado + 1, $total_paginas_atacado) ?>" class="btn btn-pagination">Siguiente</a>
             </div>
             <!-- Fin de la paginación para la tabla de ataques donde el usuario es el atacado -->
 

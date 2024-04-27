@@ -62,8 +62,51 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
     <title>Combate</title>
     <style>
+        body {
+            text-align: center;
+            color: white;
+            font-family: "Anton", sans-serif;
+        }
+
+        #video-background {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -100;
+        }
+
+        #video-background {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -100;
+        }
+
+        #contenido {
+            position: relative;
+            z-index: 1;
+            color: white;
+            /* Color del texto sobre el video */
+
+            display: flex;
+            flex-wrap: wrap;
+            /* Permitir que los elementos se envuelvan en una nueva fila */
+            justify-content: space-evenly;
+            align-items: center;
+            width: 100%;
+        }
+
         .contenedor {
             display: flex;
             justify-content: space-evenly;
@@ -79,12 +122,17 @@ try {
         .imagen-jugador {
             width: 100%;
             height: auto;
+            border: 2px solid white;
+            border-radius: 5px;
         }
 
         .imagen-jugador-activo {
-            width: 110%;
+            width: 100%;
             height: auto;
-            margin-left: -10px;
+
+            border: 2px solid white;
+            border-radius: 5px;
+
         }
 
         #contador {
@@ -95,49 +143,126 @@ try {
             max-width: 200px;
             height: auto;
         }
+
+        .armaform select {
+            width: 300px;
+            height: 40px;
+            border: 1px solid rgb(238, 90, 90);
+            border-radius: 5px;
+            background-color: white;
+            color: rgb(238, 90, 90);
+            font-size: 16px;
+            padding: 5px;
+            outline: none;
+            margin-right: 25px;
+            font-family: "Anton", sans-serif;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        .armaform select:hover{
+            background-color: rgb(238, 90, 90);
+            color:white; 
+            transition: all 0.2s;
+
+        }
+
+        .imagen-rango {
+            width: 40%;
+            height: auto;
+            margin-top: -15%;
+        }
+
+        #dispararBtn {
+
+            height: 100%;
+            border: 1px solid white;
+            color: white;
+            background-color: rgb(238, 90, 90);
+            font-size: 25px;
+            border-radius: 5px;
+            font-family: "Anton", sans-serif;
+            margin-bottom: 5px;
+            transition: all 0.2s;
+
+        }
+
+        #dispararBtn:hover {
+            background-color: white;
+            color:rgb(238, 90, 90); 
+            transition: all 0.2s;
+        }
+
+        .tiempo {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #tiempo {
+            width: 30%;
+            height: 100%;
+            border: 1px solid white;
+            color: white;
+            background-color: rgb(238, 90, 90);
+            font-size: 25px;
+            border-radius: 5px;
+            font-family: "Anton", sans-serif;
+            margin-bottom: 5px;
+
+        }
     </style>
 </head>
 
 <body>
-    <div id="tiempo"></div>
+    <video autoplay loop muted id="video-background">
+        <source src="../video/videoclove.mp4" type="video/mp4">
+        Tu navegador no soporta videos HTML5.
+    </video>
+    <?php include 'volver.php'; ?>
+    <div class="tiempo">
+        <div id="tiempo"></div>
+    </div>
     <div class='contenedor'>
-    
+
         <div class='jugador'>
             <h2><?php echo $info_atacante['nombre']; ?></h2>
-            <img src='data:image/jpeg;base64,<?php echo base64_encode($info_atacante['foto_agente']); ?>' alt='<?php echo $info_atacante['nombre']; ?>' class='imagen-jugador-activo'>
-            <img src='data:image/jpeg;base64,<?php echo base64_encode($info_atacante['foto_rango']); ?>' alt='<?php echo $info_atacante['nombre']; ?>' class='imagen-jugador-activo'>
+            <h2>(Tú)</h2>
+            <img src='data:image/jpeg;base64,<?php echo base64_encode($info_atacante['foto_agente']); ?>' alt='<?php echo $info_atacante['nombre']; ?>' class='imagen-jugador-activo' id="imagenj">
+            <img src='data:image/jpeg;base64,<?php echo base64_encode($info_atacante['foto_rango']); ?>' alt='<?php echo $info_atacante['nombre']; ?>' class='imagen-rango'>
         </div>
         <div class="armaform">
-    <!-- Selector de arma -->
-    <form id='formDisparar' action='procesar_combatir.php' method='post'>
-        <label for="id_arma">Selecciona un arma:</label>
-        <select name="id_arma" id="id_arma">
-            <option value="">Selecciona un arma</option>
-            <?php foreach ($armas as $arma) : ?>
-                <option value='<?php echo $arma['id_arma']; ?>' data-img="<?php echo 'data:image/jpeg;base64,' . base64_encode($arma['foto']); ?>"><?php echo $arma['nombre']; ?> - Daño: <?php echo $arma['daño']; ?>- Balas: <?php echo $arma['balas']; ?></option>
-            <?php endforeach; ?>
-        </select>
-        <!-- Agregar campos ocultos para enviar los datos necesarios -->
-        <input type="hidden" name="id_atacante" value="<?php echo $id_atacante; ?>">
-        <input type="hidden" name="id_atacado" value="<?php echo $id_atacado; ?>">
-        <input type="hidden" name="id_mapa" value="<?php echo $id_mapa; ?>">
-        <!-- Agregar campo oculto para enviar el estado del atacante -->
-        <input type="hidden" name="id_estado" id="id_estado" value="3">
-        <input type="submit" id="dispararBtn" value="Disparar">
-        <div id="contador"></div>
-        
-    </form>
-    </div>
-    <!-- Div para mostrar la imagen del arma seleccionada -->
-    <div id="imgarma">
-        
-    </div>
+            <!-- Selector de arma -->
+            <form id='formDisparar' action='procesar_combatir.php' method='post'>
+                <label for="id_arma">Selecciona un arma:</label>
+                <select name="id_arma" id="id_arma">
+                    <option value="">Selecciona un arma</option>
+                    <?php foreach ($armas as $arma) : ?>
+                        <option value='<?php echo $arma['id_arma']; ?>' data-img="<?php echo 'data:image/jpeg;base64,' . base64_encode($arma['foto']); ?>"><?php echo $arma['nombre']; ?> - Daño: <?php echo $arma['daño']; ?>- Balas: <?php echo $arma['balas']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <!-- Agregar campos ocultos para enviar los datos necesarios -->
+                <input type="hidden" name="id_atacante" value="<?php echo $id_atacante; ?>">
+                <input type="hidden" name="id_atacado" value="<?php echo $id_atacado; ?>">
+                <input type="hidden" name="id_mapa" value="<?php echo $id_mapa; ?>">
+                <!-- Agregar campo oculto para enviar el estado del atacante -->
+                <input type="hidden" name="id_estado" id="id_estado" value="3">
+                <input type="submit" id="dispararBtn" value="Disparar">
+                <div id="contador"></div>
+
+            </form>
+        </div>
+        <!-- Div para mostrar la imagen del arma seleccionada -->
+        <div id="imgarma">
+
+        </div>
         <!-- Información del jugador atacado -->
         <div class='jugador'>
             <h2><?php echo $info_atacado['nombre']; ?></h2>
             <img src='data:image/jpeg;base64,<?php echo base64_encode($info_atacado['foto_agente']); ?>' alt='<?php echo $info_atacado['nombre']; ?>' class='imagen-jugador'>
-            <img src='data:image/jpeg;base64,<?php echo base64_encode($info_atacado['foto_rango']); ?>' alt='<?php echo $info_atacado['nombre']; ?>' class='imagen-jugador'>
+            <img src='data:image/jpeg;base64,<?php echo base64_encode($info_atacado['foto_rango']); ?>' alt='<?php echo $info_atacado['nombre']; ?>' class='imagen-rango'>
         </div>
+        
     </div>
 
 
@@ -148,7 +273,7 @@ try {
         }
 
         // Contador regresivo de 5 minutos
-        var tiempoRestante = 100 * 60; // 5 minutos en segundos
+        var tiempoRestante = 5 * 60; // 5 minutos en segundos
         var intervaloContador = setInterval(function() {
             tiempoRestante--;
             if (tiempoRestante <= 0) {
@@ -168,30 +293,31 @@ try {
         selectArma.addEventListener("change", function() {
             var selectedOption = selectArma.options[selectArma.selectedIndex];
             var imgSrc = selectedOption.getAttribute("data-img");
-            divImgArma.innerHTML = "<img src='" + imgSrc + "' alt='Imagen del arma seleccionada'>";
+            divImgArma.innerHTML = "<img src='" + imgSrc + "' alt=''>";
         });
 
         var idEstado = document.getElementById("id_estado").value;
-        if (idEstado === "3") {
-            document.getElementById("dispararBtn").style.display = "none";
-            document.getElementById("contador").style.display = "block";
-            // Configurar el tiempo de espera en milisegundos (1 minuto = 60000 ms)
-            var tiempoEspera = 1000;
-            // Mostrar el contador regresivo
-            var contador = tiempoEspera / 1000;
-            var intervalo = setInterval(function() {
-                contador--;
-                document.getElementById("contador").innerHTML = "Siguiente turno en: " + contador + " segundos";
-                if (contador <= 0) {
-                    clearInterval(intervalo);
-                    document.getElementById("dispararBtn").style.display = "block";
-                    document.getElementById("contador").style.display = "none";
-                    document.getElementById("contador").innerHTML = "";
-                    // Actualizar el estado del jugador atacante a 4 después de un minuto
-                    document.getElementById("id_estado").value = "4";
-                }
-            }, 1000);
+if (idEstado === "3") {
+    document.getElementById("dispararBtn").style.display = "none";
+    document.getElementById("contador").style.display = "block";
+    // Configurar el tiempo de espera en milisegundos (15 segundos = 15000 ms)
+    var tiempoEspera = 15000;
+    // Mostrar el contador regresivo
+    var contador = tiempoEspera / 1000; // convertir a segundos
+    var intervalo = setInterval(function() {
+        contador--;
+        document.getElementById("contador").innerHTML = "Siguiente turno en: " + contador + " segundos";
+        if (contador <= 0) {
+            clearInterval(intervalo);
+            document.getElementById("dispararBtn").style.display = "block";
+            document.getElementById("contador").style.display = "none";
+            document.getElementById("contador").innerHTML = "";
+            // Actualizar el estado del jugador atacante a 4 después de 15 segundos
+            document.getElementById("id_estado").value = "4";
         }
+    }, 1000);
+}
+
     </script>
 
 </body>
