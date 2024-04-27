@@ -142,7 +142,7 @@ try {
             if ($salud_atacante <= 0) {
                 echo "<div id='mensajeSalud'><script>document.getElementById('mensajeSalud').innerText = 'Cuentas con 0% de salud. Por favor, abandona el mapa y restaura tus puntos de salud.';</script></div>";
             } else {
-                echo "<a href='javascript:history.back()' class='btn btn-danger btn-volver'>Volver</a>";
+                echo "<a href='index.php' class='btn btn-danger btn-volver'>Volver</a>";
                 echo "<div id='btnCombatirDiv'><button id='btnCombatir'>Combatir</button>";
 
 
@@ -182,6 +182,22 @@ try {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="https://kit.fontawesome.com/7fd910d257.js" crossorigin="anonymous"></script>
+
+    <!--favicon-->
+    <link rel="apple-touch-icon" sizes="60x60" href="../Assets/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../Assets/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../Assets/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../Assets/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="../Assets/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="../Assets/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../Assets/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../Assets/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../Assets/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../Assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="../Assets/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../Assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="../Assets/favicon/manifest.json">
+    
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
     <style>
         .btn-volver {
@@ -206,7 +222,7 @@ try {
             display: flex;
             width: 100%;
             height: 10%;
-            margin-top: -2%;
+            margin-top: 3%;
             justify-content: center;
             align-items: center;
             font-family: "Anton", sans-serif;
@@ -362,15 +378,14 @@ try {
         <source src="../video/videoclove.mp4" type="video/mp4">
         Tu navegador no soporta videos HTML5.
     </video>
-
     <script>
-        document.getElementById('btnCombatir').addEventListener('click', function() {
+        document.getElementById('btnCombatir').addEventListener('click', function () {
             // Mostrar el formulario de combate
             document.getElementById('formCombatir').style.display = 'block';
         });
 
         // Verificar la salud del usuario atacado al enviar el formulario
-        document.getElementById('formCombatir').addEventListener('submit', function(event) {
+        document.getElementById('formCombatir').addEventListener('submit', function (event) {
             var selectedOption = this.querySelector('select[name="id_atacado"] option:checked');
             var puntosSaludAtacado = parseInt(selectedOption.getAttribute('data-puntos-salud'));
             var puntosSaludAtacante = <?php echo $salud_atacante; ?>;

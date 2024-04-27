@@ -62,6 +62,22 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--favicon-->
+    <link rel="apple-touch-icon" sizes="60x60" href="../Assets/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../Assets/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../Assets/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../Assets/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="../Assets/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="../Assets/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../Assets/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../Assets/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../Assets/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../Assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="../Assets/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../Assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="../Assets/favicon/manifest.json">
+    
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
     <title>Combate</title>
     <style>
@@ -211,6 +227,25 @@ try {
             margin-bottom: 5px;
 
         }
+        .btn-volver {
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            background-color: rgb(238, 90, 90); 
+            color: white;
+            border: 2px solid rgb(238, 90, 90);
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .btn-volver:hover {
+            background-color: white;
+            color: rgb(238, 90, 90);
+        }
     </style>
 </head>
 
@@ -219,7 +254,7 @@ try {
         <source src="../video/videoclove.mp4" type="video/mp4">
         Tu navegador no soporta videos HTML5.
     </video>
-    <?php include 'volver.php'; ?>
+
     <div class="tiempo">
         <div id="tiempo"></div>
     </div>
@@ -265,7 +300,7 @@ try {
         
     </div>
 
-
+    <a href="index.php" class="btn btn-danger btn-volver">Volver</a>
     <script>
         // Función para redireccionar a index.php
         function redirectToIndex() {

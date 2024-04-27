@@ -30,7 +30,7 @@ if (isset($_POST['id_usuario'], $_POST['id_mapa'])) {
                     $stmt->execute();
                 }
             }
-            echo "Te has retirado de la sala exitosamente.";
+            echo "<script>alert('Te has retirado de la sala exitosamente.'); window.location='index.php';</script>";
         } else {
             echo "No estabas unido a esta sala.";
         }
