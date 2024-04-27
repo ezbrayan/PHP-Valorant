@@ -3,7 +3,7 @@ session_start();
 
 // Verificar si la sesión está activa
 if (!isset($_SESSION['jugador'])) {
-    header("Location: ../../../../valorant/login.php");
+    header("Location: ../login.php");
     exit;
 }
 
